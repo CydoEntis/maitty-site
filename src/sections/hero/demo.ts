@@ -90,10 +90,21 @@ function paint() {
   paintPane();
 }
 
+// Scrolls only the phone strip sideways, never the page, so the current chip stays in view.
+function revealChip(id: SessionId) {
+  const strip = root.querySelector<HTMLElement>(".strip");
+  const chip = strip?.querySelector<HTMLElement>(`[data-session="${id}"]`);
+  if (!strip || !chip || strip.clientWidth === 0) return;
+  const left = chip.offsetLeft - strip.offsetLeft;
+  if (left < strip.scrollLeft) strip.scrollLeft = left;
+  else if (left + chip.offsetWidth > strip.scrollLeft + strip.clientWidth) strip.scrollLeft = left + chip.offsetWidth - strip.clientWidth;
+}
+
 function select(id: SessionId) {
   sel = id;
   if (S[id].state === "done") update(id, { seen: true });
   paint();
+  revealChip(id);
 }
 
 function showToast(title: string, detail: string) {
@@ -151,3 +162,4 @@ root.addEventListener("keydown", (e) => {
 });
 
 onTick(root, (frame) => { if (S[sel].state === "working") paintBusy(frame); else $("[data-pane-clock]").textContent = clockText(secondsOf(S[sel])); });
+revealChip(sel);
