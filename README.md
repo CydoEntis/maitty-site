@@ -1,45 +1,67 @@
 # maitty.app
 
-The landing page for [Maitty](https://github.com/CydoEntis/maitty). Plain
-HTML, CSS and JavaScript in `site/`; no build step for deploy.
+The landing page for [Maitty](https://github.com/CydoEntis/maitty), built
+with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+into one static HTML page.
 
-- `site/` is what gets served. Open it through any static server
-  (`python -m http.server -d site`) to work on it. `?theme=day` or
-  `?theme=night` forces a theme.
-- The page is a 1:1 port of the designer's prototype ("Maitty Landing v2"):
-  the same markup, tokens, copy, interactive demos and motion.
-  - `site/view.js`: the markup, as a plain-JS template.
-  - `site/logic.js`: the prototype's logic class (state, scripted demo).
-  - `site/main.js`: mounts the two, re-renders by morphing the DOM, and does
-    the browser work (reveal on scroll, pausing off-screen sections, the
-    ticker, theme storage, the version fetch).
-  - `site/styles.css`: the prototype's tokens and keyframes, the fonts, and
-    its hover and active styles as classes.
-- `index.html` carries the first render, so the page is whole before any
-  script runs. After changing `view.js` or `logic.js`, run:
+```sh
+pnpm install
+pnpm dev       # http://localhost:4321, ?theme=day or ?theme=night forces a theme
+pnpm check     # astro check (types and templates)
+pnpm build     # writes dist/
+pnpm preview   # serves dist/
+```
 
-  ```sh
-  node tools/prerender.mjs
-  ```
+## Layout
 
-  CI fails if `index.html` is out of date.
-- Fonts are self-hosted in `site/fonts/` with their OFL licences.
-- `site/frames/` holds real Maitty screens exported from the app. The page
-  doesn't show them at the moment: every app picture in the design is an
-  interactive demo. `tools/splice-frames.mjs` copies a frame into
-  `index.html` wherever a `<!-- frame:NAME -->` / `<!-- /frame:NAME -->` slot
-  exists. Regenerate them from a Maitty checkout next to this repo
-  (`C:\dev\maitty`), on `dev` and pulled (the exporter is on `origin/dev`):
+- `src/pages/index.astro` lists the sections in order.
+- `src/sections/<name>/` holds one section each: its `.astro` component, its
+  data, and the small script that makes its demo interactive. The page is
+  whole without scripts: every section renders to plain HTML at build time,
+  and each script only toggles attributes and text on markup that is already
+  there. No UI framework.
+- `src/lib/` holds what more than one section uses: the shared clock that
+  drives spinners and typing (`ticker.ts`, off when the visitor prefers
+  reduced motion, paused for sections off screen), reveal-on-scroll and
+  off-screen pausing (`motion.ts`), the live region (`announce.ts`), and the
+  session states (`states.ts`).
+- `src/styles/global.css` holds the design tokens (Night and Day, switched by
+  `data-theme` on `<html>`), the fonts, and the keyframes. Tailwind's theme
+  maps the tokens to utilities: `bg-card`, `text-teal`, and `tm-*` for the
+  terminal mocks' colours (`text-tm-amber`).
+- `public/boot.js` runs before first paint: it sets the theme (a `?theme=`
+  link, then `localStorage['maitty-theme']`, then the system preference) and
+  the visitor's OS for the install tabs. It is a file rather than an inline
+  script so the CSP needs no script hashes.
+- On a phone the hero and branch demos switch to phone layouts (one view at
+  a time, chosen by a tap), and no demo text is under 12px.
 
-  ```sh
-  cd ../maitty && git switch dev && git pull
-  MAITTY_SITE_FRAMES=../maitty-site/site/frames cargo test export_site_frames -- --ignored
-  ```
+The design is the designer's handoff ("Maitty Landing v2"). The terminal mocks
+are live HTML built from the app's real UI with fictional sessions.
 
-  ```powershell
-  cd ..\maitty; git switch dev; git pull
-  $env:MAITTY_SITE_FRAMES = "..\maitty-site\site\frames"; cargo test export_site_frames -- --ignored
-  ```
-- The only request the page makes to anyone else is the latest version from
-  GitHub's releases API, for the footer. If it fails, the version is hidden.
-- `deploy/README.md` covers how a push to `main` reaches the server.
+## Fonts
+
+Self-hosted in `public/fonts/` with their OFL licences. The terminal mocks need
+JetBrains Mono's box-drawing and braille characters, so the full files load;
+`jetbrains-mono-*-latin.woff2` are latin subsets that paint the hero first.
+Regenerate them with [fonttools](https://github.com/fonttools/fonttools)
+(`pip install fonttools brotli`), from `public/fonts/`:
+
+```sh
+for w in 400 600 700; do
+  pyftsubset jetbrains-mono-$w.woff2 --flavor=woff2 --layout-features='*' \
+    --unicodes="U+0000-00FF,U+2013-2014,U+2018-201D,U+2022,U+2026,U+2212" \
+    --output-file=jetbrains-mono-$w-latin.woff2
+done
+```
+
+## Outside requests
+
+The only request the page makes to anyone else is the latest version from
+GitHub's releases API, for the footer. If it fails, the version stays hidden.
+
+## Deploy
+
+A push to `main` builds the Docker image (Astro build, then Caddy serving
+`dist/`) and publishes it; the server pulls it. `deploy/README.md` has the
+details.

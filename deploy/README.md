@@ -3,8 +3,10 @@
 The site runs on the VPS as one container behind the host's Caddy, the same
 way as snipux.com.
 
-1. A push to `main` runs `.github/workflows/ci.yml`. When the checks pass it
-   builds the `Dockerfile` for linux/amd64 and pushes
+1. A push to `main` runs `.github/workflows/ci.yml`: `astro check`, the
+   build, and a check that every local link in `dist/` exists. When those
+   pass it builds the `Dockerfile` (a Node stage runs the Astro build, then
+   `caddy:2.11-alpine` serves `dist/`) for linux/amd64 and pushes
    `ghcr.io/cydoentis/maitty-site:main` (and `:<commit sha>`).
 2. On the server, `/srv/maitty` holds `docker-compose.yml` from this folder.
    `maitty-update.timer` runs `maitty-update.service` every 5 minutes, which
