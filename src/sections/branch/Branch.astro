@@ -1,6 +1,6 @@
 ---
 // "A branch per agent": every diff is in the HTML, the file list picks which
-// one shows. On a phone the file list comes first and the diff wraps.
+// one shows. Below md the changes panel stacks under the diff.
 import { CHANGES } from "./files";
 ---
 <section data-branch aria-labelledby="b-title" class="border-t border-line bg-card py-[clamp(72px,10vw,128px)]">
@@ -11,14 +11,14 @@ import { CHANGES } from "./files";
       <div class="flex min-w-0 flex-col">
         <div class="flex h-6 items-center gap-2 bg-tm-bar px-2.5">
           <span class="shrink-0 bg-tm-teal px-2 font-bold text-tm-ink">1  keen-gull</span>
-          <span class="ml-auto truncate text-tm-dim">⎇ feat/login<span class="max-sm:hidden"> · acme-store-worktrees/keen-gull</span></span>
+          <span class="ml-auto truncate text-tm-dim">⎇ feat/login<span class="phone:hidden"> · acme-store-worktrees/keen-gull</span></span>
         </div>
         <div tabindex="0" role="region" aria-label="Diff" class="overflow-x-auto py-3">
           {CHANGES.map((f, i) => (
             <div data-diff={i} hidden={i !== 0}>
               <div class="code px-3.5 pb-1.5"><span class="text-tm-adim">└ </span><span class="text-tm-txt">Updated </span><span class="text-tm-strong">{f.path}</span><span class="text-tm-adim"> (+{f.added} −{f.removed})</span></div>
               {f.diff.map((d) => (
-                <div class="code grid grid-cols-[3ch_2ch_minmax(0,1fr)] gap-1 px-3.5 sm:grid-cols-[6ch_2ch_minmax(0,1fr)]">
+                <div class="code grid grid-cols-[6ch_2ch_minmax(0,1fr)] gap-1 px-3.5">
                   <span class="text-right" style={`color:${d.c}`}>{d.n}</span><span style={`color:${d.c}`}>{d.k}</span><span>{d.segs.map((s) => <span style={`color:${s.c}`}>{s.t}</span>)}</span>
                 </div>
               ))}
@@ -26,7 +26,7 @@ import { CHANGES } from "./files";
           ))}
         </div>
       </div>
-      <div class="flex flex-col border-tm-teal max-md:order-first max-md:border-b md:border-l">
+      <div class="flex flex-col border-tm-teal max-md:border-t md:border-l">
         <div class="flex h-6 items-center gap-1.5 bg-tm-bar px-2.5">
           <span class="px-1.5 text-tm-dim">files</span><span class="bg-tm-teal px-1.5 font-bold text-tm-ink">changes</span><span class="px-1.5 text-tm-dim">branches</span>
         </div>
@@ -39,7 +39,7 @@ import { CHANGES } from "./files";
             </button>
           ))}
         </div>
-        <div class="mt-auto flex flex-wrap gap-1.5 border-t border-tm-line px-2.5 py-2 max-md:hidden">
+        <div class="mt-auto flex flex-wrap gap-1.5 border-t border-tm-line px-2.5 py-2">
           <span class="term-chip px-2"><b class="text-tm-teal">c</b> commit</span>
           <span class="term-chip px-2"><b class="text-tm-teal">m</b> merge</span>
           <span class="term-chip px-2"><b class="text-tm-teal">p</b> pull request</span>
@@ -50,8 +50,7 @@ import { CHANGES } from "./files";
 </section>
 
 <style>
-  .code { white-space: pre-wrap; word-break: break-word; animation: mtUp .25s ease-out both; }
-  @media (width >= 40rem) { .code { white-space: pre; word-break: normal; } }
+  .code { white-space: pre; animation: mtUp .25s ease-out both; }
   .file[aria-pressed="true"] { background: var(--t-sel); box-shadow: inset 2px 0 0 var(--t-teal); }
 </style>
 
