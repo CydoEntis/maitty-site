@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maitty: run your coding agents side by side</title>
+<meta name="description" content="A terminal workspace for Claude Code, Codex, Gemini, OpenCode and other command-line agents. See which one needs you, and keep them running when you close the window. Free and open source.">
+<link rel="canonical" href="https://maitty.app/">
+<meta property="og:title" content="Maitty: all agents on deck">
+<meta property="og:description" content="Run your coding agents side by side, and always know which one needs you. Free and open source for Windows, macOS and Linux.">
+<meta property="og:image" content="https://maitty.app/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Maitty. All agents on deck.">
+<meta property="og:url" content="https://maitty.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maitty">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maitty: all agents on deck">
+<meta name="twitter:description" content="Run your coding agents side by side, and always know which one needs you.">
+<meta name="twitter:image" content="https://maitty.app/img/og-card.png">
+<meta name="theme-color" content="#08111d">
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/fonts/martian-mono-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+<script src="/theme.js"></script>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="Maitty home">
+      <img src="/img/maitty-logo.svg" alt="" width="40" height="34">
+      <span class="wordmark">M<span class="ai">AI</span>TTY</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#install">install</a>
+      <a href="https://github.com/CydoEntis/maitty/blob/main/docs/guide.md">guide</a>
+      <a href="https://github.com/CydoEntis/maitty">github</a>
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" data-set-theme="night" aria-pressed="true" aria-label="Night theme" title="Night theme"><span class="moon"></span></button>
+        <button type="button" data-set-theme="day" aria-pressed="false" aria-label="Day theme" title="Day theme"><span class="sun"></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero-copy">
+      <h1 id="hero-title"><span>All agents</span> <span class="teal">on&nbsp;deck.</span></h1>
+      <p class="lede">Run your coding agents side by side, and always know which one needs you.</p>
+      <p class="meta">Free and open source (MIT) · Windows, macOS and Linux</p>
+
+      <div class="install" data-install>
+        <div class="install-bar">
+          <div role="tablist" aria-label="Your operating system">
+            <button type="button" role="tab" id="os-win-1" aria-controls="os-panel-1" aria-selected="true" data-os="win">Windows</button>
+            <button type="button" role="tab" id="os-nix-1" aria-controls="os-panel-1" aria-selected="false" tabindex="-1" data-os="nix">macOS · Linux</button>
+          </div>
+          <span class="shell" data-shell>PowerShell</span>
+        </div>
+        <div class="install-cmd" role="tabpanel" id="os-panel-1" aria-labelledby="os-win-1">
+          <code><span class="prompt" data-prompt>PS&gt;</span> <span data-cmd>irm https://raw.githubusercontent.com/CydoEntis/maitty/main/install.ps1 | iex</span></code>
+        </div>
+        <div class="install-foot">
+          <span>Then run <code class="chip">maitty</code> in any project folder.</span>
+          <button type="button" class="btn btn-primary" data-copy aria-label="Copy install command">⧉ copy</button>
+        </div>
+      </div>
+
+      <a class="btn btn-secondary" href="https://github.com/CydoEntis/maitty"><span class="teal" aria-hidden="true">›</span> View on GitHub</a>
+    </div>
+
+    <div class="sea">
+      <div class="wave wave-crest" aria-hidden="true"></div>
+      <div class="wave wave-water" aria-hidden="true"></div>
+      <div class="water">
+        <div class="wrap">
+          <figure class="term">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+            <div class="term-body" role="img" aria-label="Maitty with several agent sessions: a sidebar lists each session and its status, beside the selected agent's pane.">
+<!-- frame:hero -->
+<p class="frame-slot">Real screen: hero</p>
+<!-- /frame:hero -->
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="status-title">
+    <div class="wrap split">
+      <div>
+        <h2 id="status-title">Know who needs you.</h2>
+        <p>Every session shows whether its agent is working, needs you, has finished or is idle, read from the agent's own hooks where it has them. When one waits, Maitty plays a sound and can send an alert to your phone.</p>
+        <dl class="states">
+          <div><dt><span class="glyph working" aria-hidden="true">⠴</span> working</dt><dd>Busy on its turn.</dd></div>
+          <div><dt><span class="glyph needs" aria-hidden="true">●</span> needs you</dt><dd>A question or approval is waiting.</dd></div>
+          <div><dt><span class="glyph done" aria-hidden="true">●</span> done</dt><dd>The turn finished and its checks passed.</dd></div>
+          <div><dt><span class="glyph idle" aria-hidden="true">○</span> idle</dt><dd>Nothing running.</dd></div>
+        </dl>
+      </div>
+      <figure class="term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+        <div class="term-body" role="img" aria-label="Four agent sessions in a grid, each showing its status.">
+<!-- frame:grid -->
+<p class="frame-slot">Real screen: grid</p>
+<!-- /frame:grid -->
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="back-title">
+    <div class="wrap split">
+      <div>
+        <h2 id="back-title">Close it, come back.</h2>
+        <p>A background service owns every session. Close the window and your agents keep running; run <code class="chip">maitty</code> to come back. After a crash or a reboot, Maitty reopens them in the right folders and resumes their conversations.</p>
+      </div>
+      <figure class="term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+        <div class="term-body" role="img" aria-label="Maitty's start screen as it reopens your sessions.">
+<!-- frame:splash -->
+<p class="frame-slot">Real screen: splash</p>
+<!-- /frame:splash -->
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="branch-title">
+    <div class="wrap">
+      <h2 id="branch-title">A branch per agent, review in place.</h2>
+      <p class="intro">Each new agent gets its own Git worktree, so no two edit the same files. Files, Changes and Branch open in a side panel beside your panes: review each file's diff, then commit, merge or open a pull request without leaving.</p>
+      <div class="picker">
+        <div role="tablist" aria-label="Side panel" class="tabs">
+          <button type="button" role="tab" id="panel-tab-changes" aria-controls="panel-changes" aria-selected="true">changes</button>
+          <button type="button" role="tab" id="panel-tab-files" aria-controls="panel-files" aria-selected="false" tabindex="-1">files</button>
+        </div>
+        <figure class="term" role="tabpanel" id="panel-changes" aria-labelledby="panel-tab-changes">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Changes tab in the side panel, showing a file's diff next to the agent's pane.">
+<!-- frame:changes -->
+<p class="frame-slot">Real screen: changes</p>
+<!-- /frame:changes -->
+          </div>
+        </figure>
+        <figure class="term" role="tabpanel" id="panel-files" aria-labelledby="panel-tab-files" hidden>
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Files tab in the side panel, showing the project tree next to the agent's pane.">
+<!-- frame:files -->
+<p class="frame-slot">Real screen: files</p>
+<!-- /frame:files -->
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="inbox-title">
+    <div class="wrap">
+      <h2 id="inbox-title">Inbox, alerts and checks.</h2>
+      <figure class="term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+        <div class="term-body" role="img" aria-label="The inbox: questions, failed checks and finished work, most urgent first.">
+<!-- frame:inbox -->
+<p class="frame-slot">Real screen: inbox</p>
+<!-- /frame:inbox -->
+        </div>
+      </figure>
+      <div class="cols3">
+        <div>
+          <h3>Inbox</h3>
+          <p>Questions, failed checks and finished work collect in one place, most urgent first.</p>
+        </div>
+        <div>
+          <h3>Alerts</h3>
+          <p>A sound when an agent waits, and an optional notification on your phone.</p>
+        </div>
+        <div>
+          <h3>Checks</h3>
+          <p>Name a command, such as your tests. Maitty runs it after every turn, so a broken turn reads <b>failed</b>, not <b>done</b>.</p>
+<pre class="code"><span class="c"># config.toml</span>
+[[check]]
+<span class="k">name</span>    = <span class="s">"test"</span>
+<span class="k">command</span> = <span class="s">"cargo test"</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="cli-title">
+    <div class="wrap split">
+      <div>
+        <h2 id="cli-title">Agents that work together.</h2>
+        <p>Everything works from any shell, including from an agent running inside Maitty. Through MCP, agents can list, read, message and start other sessions, within limits you set.</p>
+      </div>
+<pre class="code code-lg" aria-label="Command-line examples"><span class="p">$</span> maitty worktree feat/login -- codex
+<span class="c"># a new branch in its own worktree, with codex</span>
+<span class="p">$</span> maitty send -p 3 "run the tests"
+<span class="c"># message session 3</span>
+<span class="p">$</span> maitty handoff 3 --to claude
+<span class="c"># hand its task to another agent</span>
+<span class="p">$</span> maitty ls --json
+<span class="c"># every session and its status</span></pre>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="yours-title">
+    <div class="wrap">
+      <h2 id="yours-title">Make it yours.</h2>
+      <p class="intro">Four layouts, over 60 themes, rounded or square shapes, and every key and colour configurable. The screens on this page follow the Night and Day switch at the top.</p>
+      <div class="picker">
+        <div role="tablist" aria-label="Layout" class="tabs">
+          <button type="button" role="tab" id="lay-tab-floating" aria-controls="lay-floating" aria-selected="true">floating</button>
+          <button type="button" role="tab" id="lay-tab-tiled" aria-controls="lay-tiled" aria-selected="false" tabindex="-1">tiled</button>
+          <button type="button" role="tab" id="lay-tab-compact" aria-controls="lay-compact" aria-selected="false" tabindex="-1">compact</button>
+          <button type="button" role="tab" id="lay-tab-grid" aria-controls="lay-grid" aria-selected="false" tabindex="-1">grid</button>
+        </div>
+        <figure class="term" role="tabpanel" id="lay-floating" aria-labelledby="lay-tab-floating">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Floating layout: boxes with gaps, the default.">
+<!-- frame:layout-floating -->
+<p class="frame-slot">Real screen: layout-floating</p>
+<!-- /frame:layout-floating -->
+          </div>
+          <figcaption><b>Floating.</b> Boxes with gaps, the default.</figcaption>
+        </figure>
+        <figure class="term" role="tabpanel" id="lay-tiled" aria-labelledby="lay-tab-tiled" hidden>
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Tiled layout: boxes edge to edge.">
+<!-- frame:layout-tiled -->
+<p class="frame-slot">Real screen: layout-tiled</p>
+<!-- /frame:layout-tiled -->
+          </div>
+          <figcaption><b>Tiled.</b> Boxes edge to edge.</figcaption>
+        </figure>
+        <figure class="term" role="tabpanel" id="lay-compact" aria-labelledby="lay-tab-compact" hidden>
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Compact layout: full-bleed zones with square edges.">
+<!-- frame:layout-compact -->
+<p class="frame-slot">Real screen: layout-compact</p>
+<!-- /frame:layout-compact -->
+          </div>
+          <figcaption><b>Compact.</b> Full-bleed zones with square edges.</figcaption>
+        </figure>
+        <figure class="term" role="tabpanel" id="lay-grid" aria-labelledby="lay-tab-grid" hidden>
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
+          <div class="term-body" role="img" aria-label="The Grid layout: each pane in its own colour, by its place.">
+<!-- frame:layout-grid -->
+<p class="frame-slot">Real screen: layout-grid</p>
+<!-- /frame:layout-grid -->
+          </div>
+          <figcaption><b>Grid.</b> Each pane in its own colour, by its place.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="agents-title">
+    <div class="wrap">
+      <h2 id="agents-title">Works with your agents.</h2>
+      <ul class="agents">
+        <li><span aria-hidden="true">✻</span>Claude Code</li>
+        <li><span aria-hidden="true">◆</span>Codex</li>
+        <li><span aria-hidden="true">✦</span>Gemini CLI</li>
+        <li><span aria-hidden="true">◇</span>OpenCode</li>
+        <li><span aria-hidden="true">·</span>Qwen</li>
+        <li><span aria-hidden="true">·</span>Pi</li>
+        <li><span aria-hidden="true">·</span>Kilo</li>
+        <li><span aria-hidden="true">·</span>Kimi</li>
+        <li><span aria-hidden="true">·</span>Mastra Code</li>
+      </ul>
+      <p>Any command-line agent works; these report exact status. Connect one with <code class="chip">maitty integrate claude</code>.</p>
+    </div>
+  </section>
+
+  <section class="install-section" id="install" aria-labelledby="install-title">
+    <div class="ship">
+      <img src="/img/hero-ship-960.webp" srcset="/img/hero-ship-480.webp 480w, /img/hero-ship-960.webp 960w, /img/hero-ship-1280.webp 1280w" sizes="(max-width: 600px) 92vw, 560px" alt="The Maitty ship, crewed by robot sailors" width="1502" height="909" loading="lazy" decoding="async">
+    </div>
+    <div class="wave wave-crest still" aria-hidden="true"></div>
+    <div class="wave wave-water still" aria-hidden="true"></div>
+    <div class="water">
+      <div class="wrap install-copy">
+        <h2 id="install-title">Install M<span class="teal">ai</span>tty.</h2>
+        <p>Free and open source. Windows, macOS and Linux. No account, no admin rights.</p>
+
+        <div class="install" data-install>
+          <div class="install-bar">
+            <div role="tablist" aria-label="Your operating system">
+              <button type="button" role="tab" id="os-win-2" aria-controls="os-panel-2" aria-selected="true" data-os="win">Windows</button>
+              <button type="button" role="tab" id="os-nix-2" aria-controls="os-panel-2" aria-selected="false" tabindex="-1" data-os="nix">macOS · Linux</button>
+            </div>
+            <span class="shell" data-shell>PowerShell</span>
+          </div>
+          <div class="install-cmd" role="tabpanel" id="os-panel-2" aria-labelledby="os-win-2">
+            <code><span class="prompt" data-prompt>PS&gt;</span> <span data-cmd>irm https://raw.githubusercontent.com/CydoEntis/maitty/main/install.ps1 | iex</span></code>
+          </div>
+          <div class="install-foot">
+            <span>Then run <code class="chip">maitty</code> in any project folder.</span>
+            <button type="button" class="btn btn-primary" data-copy aria-label="Copy install command">⧉ copy</button>
+          </div>
+        </div>
+
+        <nav class="links" aria-label="Documentation">
+          <a href="https://github.com/CydoEntis/maitty#readme">README</a>
+          <a href="https://github.com/CydoEntis/maitty/blob/main/docs/guide.md">Guide</a>
+          <a href="https://github.com/CydoEntis/maitty/releases">Releases</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div class="footer-brand">
+      <img src="/img/maitty-logo.svg" alt="" width="34" height="29">
+      <span class="wordmark">M<span class="ai">AI</span>TTY</span>
+      <span class="version" data-version hidden>version <a href="https://github.com/CydoEntis/maitty/releases/latest"></a></span>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="https://github.com/CydoEntis/maitty">GitHub</a>
+      <a href="https://github.com/CydoEntis/maitty/releases">Releases</a>
+      <a href="https://github.com/CydoEntis/maitty/blob/main/LICENSE">MIT License</a>
+    </nav>
+  </div>
+</footer>
+<div class="sr-only" aria-live="polite" data-live></div>
+</body>
+</html>
