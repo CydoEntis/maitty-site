@@ -7,7 +7,7 @@ import { STATES, STATE_KEYS } from "../../lib/states";
   <div class="mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-center gap-[clamp(32px,5vw,64px)] px-[clamp(16px,4vw,32px)]">
     <div>
       <h2 data-reveal id="s-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Know who needs you.</h2>
-      <p data-reveal class="m-0 mb-7 max-w-[50ch] text-muted">Every session shows its state, read from the agent's own hooks. When one waits, Maitty plays a sound and can send an alert to your phone.</p>
+      <p data-reveal class="m-0 mb-7 max-w-[50ch] text-muted">Every session shows its state, read from the agent's own hooks where it's connected, and from its screen otherwise. When one waits, Maitty plays a sound and can send an alert to your phone.</p>
       <div role="group" aria-label="Pick a state" class="flex flex-wrap gap-2.5">
         {STATE_KEYS.map((k) => (
           <button type="button" data-state-pick={k} aria-pressed={k === "working" ? "true" : "false"} class="chip flex h-11 items-center gap-2.5 rounded-btn border-2 px-3.5 font-mono text-sm font-bold" style={`--c:${STATES[k].color}`}>
