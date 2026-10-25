@@ -23,9 +23,9 @@ const THEMES = [
             <button type="button" data-layout-pick={l.k} aria-pressed={i === 0 ? "true" : "false"} class="layout-btn h-11 rounded-btn border-2 px-3.5 font-mono text-[13px] font-bold">{l.name.toLowerCase()}</button>
           ))}
         </div>
-        <div aria-hidden="true" data-layout="floating" class="preview grid grid-cols-[42%_1fr_1fr] sm:grid-cols-[32%_1fr_1fr] grid-rows-[110px_110px] overflow-hidden rounded-term border border-tm-line bg-tm-bg font-mono text-xs/4 text-tm-txt sm:text-[11px]/4">
-          <div class="p row-span-2"><span class="bg-tm-chip px-1 font-bold text-tm-strong">SESSIONS</span><br /><span class="text-tm-amber">●</span> bold-puffin<br /><span class="text-tm-teal">⠴</span> <span class="text-tm-work">swift-otter</span><br /><span class="text-tm-green">●</span> <span class="text-tm-green">calm-heron</span></div>
-          <div class="p row-span-2"><span class="text-tm-green">●</span> Bash(cargo test)<br /><span class="text-tm-adim">└ 214 passed</span></div>
+        <div aria-hidden="true" data-layout="floating" class="preview grid grid-cols-[32%_1fr_1fr] grid-rows-[110px_110px] overflow-hidden rounded-term border border-tm-line bg-tm-bg font-mono text-[11px]/4 text-tm-txt phone:grid-cols-2 phone:grid-rows-[auto_64px_64px] phone:text-xs/4">
+          <div class="p row-span-2 phone:col-[1/3] phone:row-auto"><span class="bg-tm-chip px-1 font-bold text-tm-strong">SESSIONS</span><br /><span class="text-tm-amber">●</span> bold-puffin<br /><span class="text-tm-teal">⠴</span> <span class="text-tm-work">swift-otter</span><br /><span class="text-tm-green">●</span> <span class="text-tm-green">calm-heron</span></div>
+          <div class="p row-span-2 phone:row-[2/4]"><span class="text-tm-green">●</span> Bash(cargo test)<br /><span class="text-tm-adim">└ 214 passed</span></div>
           <div class="p"><span class="text-tm-teal">$</span> pnpm dev</div>
           <div class="p"><span class="text-tm-teal">$</span> lazygit</div>
         </div>
@@ -33,16 +33,16 @@ const THEMES = [
           <p data-layout-desc={l.k} hidden={i !== 0} class="m-0 font-mono text-sm/[normal] font-medium text-text"><b class="text-strong">{l.name}.</b> {l.desc}</p>
         ))}
       </div>
-      <div class="grid grid-cols-2 content-start gap-4">
+      <div class="grid grid-cols-2 content-start gap-4 phone:gap-2.5">
         {THEMES.map((t) => (
-          <button type="button" data-theme-pick={t.k} aria-pressed={t.k === "night" ? "true" : "false"} class="theme-card flex flex-col gap-3 rounded-card border-2 p-4 text-left" style={`background:${t.bg};color:${t.fg}`}>
+          <button type="button" data-theme-pick={t.k} aria-pressed={t.k === "night" ? "true" : "false"} class="theme-card flex flex-col gap-3 rounded-card border-2 p-4 text-left phone:p-3" style={`background:${t.bg};color:${t.fg}`}>
             <span class="font-mono text-sm/[normal] font-bold">{t.label}</span>
             <span class="flex flex-col gap-0.5 p-2.5 font-mono text-xs/[1.6]" style={`background:${t.panel}`}>
               <span><span style={`color:${t.teal}`}>⠴</span> <span style={`color:${t.work}`}>swift-otter</span></span>
               <span><span style={`color:${t.needs}`}>●</span> bold-puffin</span>
               <span><span style={`color:${t.done}`}>●</span> <span style={`color:${t.done}`}>calm-heron</span></span>
             </span>
-            <span class="font-mono text-xs/[normal] font-medium opacity-80"><span class="hint-on">● this page</span><span class="hint-off">click to switch the page</span></span>
+            <span class="font-mono text-xs/[normal] font-medium opacity-80 phone:hidden"><span class="hint-on">● this page</span><span class="hint-off">click to switch the page</span></span>
           </button>
         ))}
       </div>
