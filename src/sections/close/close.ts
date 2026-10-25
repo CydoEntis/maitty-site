@@ -8,7 +8,7 @@ const STAGGER_MS = 110;
 const FOOT: Record<Mode, [string, string]> = {
   open: ["close the window, then come back", "var(--t-adim)"],
   closed: ["background service · 3 agents still running, 2 saved", "var(--t-dim)"],
-  reopened: ["✓ all hands back on deck: folders and conversations resumed", "var(--t-teal)"],
+  reopened: ["✓ all hands back on deck: 3 kept running, 2 resumed", "var(--t-teal)"],
 };
 
 const section = document.querySelector<HTMLElement>("[data-close]")!;
