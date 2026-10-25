@@ -230,6 +230,11 @@ h1 span { display: block; }
   white-space: pre;
   width: max-content;
 }
+/* Glyphs JetBrains Mono lacks fall back to another font with a different
+   advance; the exporter wraps them so each still takes exactly its cells. */
+.frame .g, .frame .g2 { display: inline-block; overflow: hidden; text-align: center; vertical-align: top; }
+.frame .g { width: 1ch; }
+.frame .g2 { width: 2ch; }
 .fv-day { display: none; }
 [data-theme="day"] .fv-night { display: none; }
 [data-theme="day"] .fv-day { display: block; }
