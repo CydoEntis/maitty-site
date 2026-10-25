@@ -92,7 +92,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 400 17px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; transition: background-color .4s, color .4s; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 17px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; }
   a { color: var(--teal); text-underline-offset: 3px; }
   a:hover { color: var(--strong); }
   button { cursor: pointer; }
@@ -114,6 +114,11 @@
 .js [data-reveal][data-in] { opacity: 1; transform: none; }
 /* A section off screen stops its decoration until it is back (lib/motion.ts). */
 [data-paused], [data-paused] * { animation-play-state: paused !important; }
+
+/* A theme switch is one circular reveal (header/theme.ts), so the default
+   cross-fade and every colour transition stay out of it. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+[data-theme-switching] *, [data-theme-switching] *::before, [data-theme-switching] *::after { transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
