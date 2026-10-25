@@ -33,8 +33,12 @@ pnpm preview   # serves dist/
   link, then `localStorage['maitty-theme']`, then the system preference) and
   the visitor's OS for the install tabs. It is a file rather than an inline
   script so the CSP needs no script hashes.
-- On a phone the hero and branch demos switch to phone layouts (one view at
-  a time, chosen by a tap), and no demo text is under 12px.
+- Phones (560px and under, the `phone:` variant in `global.css`) get the
+  designer's phone layout: the hero demo swaps its session list for a strip
+  of chips, the branch panel stacks under the diff, and no demo text is
+  under 12px.
+- A theme switch reveals the new theme in a circle from the top-right corner
+  (a View Transition), or switches at once under reduced motion.
 
 The design is the designer's handoff ("Maitty Landing v2"). The terminal mocks
 are live HTML built from the app's real UI with fictional sessions.
