@@ -1,2 +1,4 @@
-# The frames are already spliced into index.html; the page never fetches them.
-site/frames
+node_modules/
+dist/
+.astro/
+.git/
