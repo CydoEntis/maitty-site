@@ -1,0 +1,35 @@
+---
+// #install: the ship rides the wave above the second install block.
+import Sky from "../decor/Sky.astro";
+import Waves from "../decor/Waves.astro";
+import InstallBlock from "./InstallBlock.astro";
+
+const LINKS = [
+  ["README", "https://github.com/CydoEntis/maitty#readme"],
+  ["Guide", "https://github.com/CydoEntis/maitty/blob/main/docs/guide.md"],
+  ["Releases", "https://github.com/CydoEntis/maitty/releases"],
+];
+---
+<section id="install" aria-labelledby="f-title" class="relative overflow-hidden border-t border-line">
+  <Sky />
+  <div class="relative z-[1] -mb-14 flex justify-center px-[clamp(16px,4vw,32px)] pt-[clamp(56px,8vw,96px)]">
+    <div class="ship w-[min(100%,560px)]">
+      <img src="/img/hero-ship-960.webp" srcset="/img/hero-ship-480.webp 480w, /img/hero-ship-960.webp 960w, /img/hero-ship-1280.webp 1280w" sizes="(max-width: 600px) 92vw, 560px" decoding="async" loading="lazy" alt="The Maitty ship, crewed by robot sailors" width="1502" height="909" class="block h-auto w-full [filter:var(--shipf)]" />
+    </div>
+  </div>
+  <Waves />
+  <div class="bg-water pb-[clamp(80px,11vw,140px)]">
+    <div class="relative z-[4] mx-auto flex max-w-[760px] flex-col items-center gap-[22px] px-[clamp(16px,4vw,32px)] text-center">
+      <h2 data-reveal id="f-title" class="m-0 font-display text-[clamp(30px,5vw,60px)]/[1.05] font-extrabold tracking-[-.04em] text-strong">Install M<span class="text-teal">ai</span>tty.</h2>
+      <p class="m-0 text-[19px] text-text">Free and open source. Windows, macOS and Linux. No account, no admin rights.</p>
+      <InstallBlock id="footer" variant="footer" />
+      <div class="flex flex-wrap justify-center gap-x-7 gap-y-2.5">
+        {LINKS.map(([label, href]) => <a class="font-mono text-sm/[normal] font-semibold text-teal underline hover:text-strong" href={href}>{label}</a>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ship { animation: mtShip 7s ease-in-out infinite; transform-origin: 50% 90%; }
+</style>

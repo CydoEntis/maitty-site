@@ -1,0 +1,32 @@
+---
+// "Agents that work together": the commands type themselves out. The HTML
+// holds them in full, which is also what shows with no script or no motion.
+import { CLI } from "./cli";
+---
+<section data-together aria-labelledby="m-title" class="border-t border-line bg-card py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-center gap-[clamp(32px,5vw,64px)] px-[clamp(16px,4vw,32px)]">
+    <div>
+      <h2 data-reveal id="m-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Agents that work together.</h2>
+      <p class="m-0 max-w-[46ch] text-muted">Everything works from any shell, including from an agent running inside Maitty. Through MCP, agents can list, read, message and start other sessions, within limits you set.</p>
+    </div>
+    <div data-reveal class="term text-[13px]/[20px] [transition-delay:.15s] sm:text-sm/[20px]">
+      <div class="flex h-[26px] items-center gap-2 bg-tm-bar px-2.5"><span class="bg-tm-teal px-2 font-bold text-tm-ink">2  shell</span><span class="ml-auto text-tm-dim">~/code/billing-api</span></div>
+      <div class="min-h-[290px] px-4 pt-4 pb-5">
+        {CLI.map(([cmd, note]) => (
+          <div class="mb-3">
+            <div class="break-words whitespace-pre-wrap text-tm-strong"><span class="font-bold text-tm-teal">$ </span><span data-cmd>{cmd}</span><span data-caret hidden class="caret ml-0.5 inline-block h-[1.1em] w-[.6em] bg-tm-teal align-[-.15em]"></span></div>
+            <div data-note class="text-tm-adim transition-opacity duration-300"># {note}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .caret { animation: mtBlink 1s steps(1) infinite; }
+</style>
+
+<script>
+  import "./typing";
+</script>

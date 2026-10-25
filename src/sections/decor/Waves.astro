@@ -1,0 +1,17 @@
+---
+// A crest line over the water fill, both scrolling sideways. What follows the
+// band sits on --water.
+---
+<div aria-hidden="true" class="wave crest"></div>
+<div aria-hidden="true" class="wave water"></div>
+
+<style>
+  .wave {
+    position: relative; z-index: 3; height: 64px;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 64' preserveAspectRatio='none'%3E%3Cpath d='M0 32 Q75 14 150 32 T300 32 T450 32 T600 32 V64 H0 Z'/%3E%3C/svg%3E") 0 0/600px 64px repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 64' preserveAspectRatio='none'%3E%3Cpath d='M0 32 Q75 14 150 32 T300 32 T450 32 T600 32 V64 H0 Z'/%3E%3C/svg%3E") 0 0/600px 64px repeat-x;
+    animation: mtWave 16s linear infinite;
+  }
+  .crest { margin-bottom: -61px; background: var(--crest); }
+  .water { background: var(--water); }
+</style>

@@ -1,0 +1,74 @@
+---
+// "Inbox, alerts and checks": three cards. The inbox rows and the alert
+// switches respond to clicks; the checks card is a config sample.
+const INBOX = [
+  { group: "NEEDS YOU", g: "●", c: "var(--t-amber)", name: "bold-puffin", text: "asks: Allow Bash(pnpm install)?" },
+  { group: "FAILED CHECKS", g: "✕", c: "var(--t-red)", name: "swift-otter", text: "failed: test · exit 1" },
+  { group: "NOT SEEN", g: "●", c: "var(--t-green)", name: "calm-heron", text: "done · not seen" },
+];
+const ALERTS = [{ label: "Sound when an agent waits", on: true }, { label: "Notify my phone", on: false }];
+const card = "flex flex-col gap-3.5 rounded-card border border-line bg-card p-5";
+const h3 = "m-0 font-display text-base/[normal] font-bold tracking-[-.02em] text-strong";
+---
+<section data-inbox aria-labelledby="i-title" class="border-t border-line py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
+    <h2 data-reveal id="i-title" class="m-0 mb-10 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Inbox, alerts and checks.</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-5">
+      <div class="term flex flex-col text-[13px]/[18px] shadow-none">
+        <div class="flex h-6 items-center justify-between bg-tm-bar px-2.5"><span class="bg-tm-chip px-1.5 text-tm-strong"><b>INBOX</b> 3</span><span class="text-tm-dim">most urgent first</span></div>
+        <div class="pt-2 pb-3">
+          {INBOX.map((it, i) => (
+            <>
+              <div class="px-3 pt-2 pb-0.5 font-bold text-tm-dim">{it.group}</div>
+              <button type="button" data-inbox-row aria-pressed={i === 0 ? "true" : "false"} class="row grid w-full grid-cols-[2ch_minmax(0,1fr)] gap-2 border-0 bg-transparent px-3 py-[3px] text-left text-tm-txt hover:bg-tm-sel max-md:py-2">
+                <span class="font-bold" style={`color:${it.c}`}>{it.g}</span>
+                <span class="flex min-w-0 flex-col">
+                  <b class="text-tm-strong">{it.name}</b><span style={`color:${it.c}`}>{it.text}</span>
+                  <span class="actions mt-1"><span class="term-chip"><b class="text-tm-teal">↵</b> open</span> <span class="term-chip"><b class="text-tm-teal">r</b> reply</span></span>
+                </span>
+              </button>
+            </>
+          ))}
+        </div>
+      </div>
+      <div class={card}>
+        <h3 class={h3}>Alerts</h3>
+        <p class="m-0 text-base text-muted">A sound when an agent waits, and an optional notification on your phone.</p>
+        {ALERTS.map(({ label, on }) => (
+          <button type="button" role="switch" aria-checked={on ? "true" : "false"} data-alert class="flex min-h-11 items-center gap-3 rounded-btn border border-line bg-bg px-3 py-2.5 text-left font-mono text-sm font-medium text-strong transition-colors duration-200 hover:border-teal">
+            <span class="box font-bold whitespace-pre"></span>{label}
+          </button>
+        ))}
+      </div>
+      <div class={card}>
+        <h3 class={h3}>Checks</h3>
+        <p class="m-0 text-base text-muted">Name a command, such as your tests. Maitty runs it after every turn, so a broken turn reads <b class="font-mono text-fail">failed</b>, not <b class="font-mono text-done">done</b>.</p>
+        <pre tabindex="0" class="m-0 overflow-x-auto rounded-btn border border-tm-line bg-tm-bg px-3.5 py-3 font-mono text-[13px]/[1.65] text-tm-txt"><span class="text-tm-adim"># config.toml</span>
+[[check]]
+<span class="text-tm-teal">project</span> = <span class="text-tm-red">"/home/me/code/my-app"</span>
+<span class="text-tm-teal">name</span>    = <span class="text-tm-red">"test"</span>
+<span class="text-tm-teal">command</span> = <span class="text-tm-red">"cargo test"</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .row[aria-pressed="true"] { background: var(--t-sel); box-shadow: inset 2px 0 0 var(--t-teal); }
+  .row[aria-pressed="false"] .actions { display: none; }
+  [aria-checked="true"] .box { color: var(--teal); }
+  [aria-checked="true"] .box::before { content: "[✓]"; }
+  [aria-checked="false"] .box { color: var(--dim); }
+  [aria-checked="false"] .box::before { content: "[ ]"; }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-inbox]")!;
+  section.addEventListener("click", (e) => {
+    const target = e.target as Element;
+    const row = target.closest<HTMLElement>("[data-inbox-row]");
+    if (row) section.querySelectorAll("[data-inbox-row]").forEach((r) => r.setAttribute("aria-pressed", String(r === row)));
+    const alert = target.closest<HTMLElement>("[data-alert]");
+    if (alert) alert.setAttribute("aria-checked", String(alert.getAttribute("aria-checked") !== "true"));
+  });
+</script>

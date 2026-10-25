@@ -1,0 +1,22 @@
+---
+// The moon and sun buttons. Which one is lit follows <html data-theme> in CSS,
+// so the right one shows before any script runs; theme.ts keeps aria-pressed true.
+---
+<div role="group" aria-label="Theme" class="flex overflow-hidden rounded-btn border border-line bg-card">
+  <button type="button" data-theme-pick="night" aria-pressed="true" aria-label="Night theme" title="Night theme" class="pick grid size-11 place-items-center border-0 p-0">
+    <span class="block size-[13px] -rotate-15 rounded-full shadow-[inset_4px_-3px_0_0_currentColor]"></span>
+  </button>
+  <button type="button" data-theme-pick="day" aria-pressed="false" aria-label="Day theme" title="Day theme" class="pick grid size-11 place-items-center border-0 p-0">
+    <span class="block size-[7px] rounded-full bg-current outline-2 outline-offset-2 outline-current outline-dotted"></span>
+  </button>
+</div>
+
+<style>
+  .pick { background: transparent; color: var(--muted); transition: background-color .25s, color .25s; }
+  :global([data-theme="night"]) .pick[data-theme-pick="night"],
+  :global([data-theme="day"]) .pick[data-theme-pick="day"] { background: var(--teal); color: var(--ink); }
+</style>
+
+<script>
+  import "./theme";
+</script>

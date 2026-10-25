@@ -1,0 +1,20 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+
+const link = "py-3 text-text no-underline hover:text-teal";
+---
+<header class="sticky top-0 z-20 animate-[mtDrop_.6s_ease-out_both] border-b border-line bg-[color-mix(in_srgb,var(--bg)_86%,transparent)] backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-3 px-[clamp(16px,4vw,32px)]">
+    <a href="#top" aria-label="Maitty home" class="flex items-center gap-2.5 font-display text-[15px] font-extrabold tracking-[.04em] text-foam no-underline">
+      <img src="/img/maitty-logo.svg" alt="" width="40" height="34" class="block h-auto w-10" />
+      <span>M<span class="text-teal">AI</span>TTY</span>
+    </a>
+    <nav aria-label="Main" class="flex items-center gap-[clamp(8px,2.2vw,22px)] font-mono text-[13px] font-medium">
+      <a class={link} href="#install">install</a>
+      {/* Phones keep install and the theme; guide and GitHub sit in the hero and footer too. */}
+      <a class={`${link} max-sm:hidden`} href="https://github.com/CydoEntis/maitty/blob/main/docs/guide.md">guide</a>
+      <a class={`${link} max-sm:hidden`} href="https://github.com/CydoEntis/maitty">github</a>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,48 @@
+---
+import Sky from "../decor/Sky.astro";
+import Waves from "../decor/Waves.astro";
+import InstallBlock from "../install/InstallBlock.astro";
+import HeroDemo from "./HeroDemo.astro";
+---
+<section aria-labelledby="hero-title" class="relative pt-[clamp(40px,7vw,84px)]">
+  <Sky />
+  <div class="relative z-[1] mx-auto grid max-w-[1280px] grid-cols-[minmax(0,820px)] justify-center px-[clamp(16px,4vw,32px)]">
+    <div class="flex min-w-0 flex-col items-center gap-6 pb-14 text-center">
+      <h1 id="hero-title" class="m-0 font-display text-[clamp(34px,5.4vw,68px)]/[1.02] font-extrabold tracking-[-.04em] text-strong">
+        <span class="type type-1">All agents</span>
+        <span class="type type-2 text-teal">on&nbsp;deck.<span aria-hidden="true" class="h1-cursor"></span></span>
+      </h1>
+      <p class="rise m-0 max-w-[32ch] text-[clamp(18px,1.8vw,22px)]/[1.5] text-pretty text-text [animation-delay:1.25s]">Run your coding agents side by side, and always know which one needs you.</p>
+      <p class="rise m-0 font-mono text-[13px]/[normal] font-medium text-muted [animation-delay:1.4s]"><span class="text-teal">~</span> your first mate for a crew of coding agents · free &amp; open source (MIT)</p>
+      <div class="rise mt-2 flex w-full min-w-0 flex-col items-center gap-[18px] [animation-delay:1.55s] [animation-duration:.8s]">
+        <InstallBlock id="hero" variant="hero" />
+        <a href="https://github.com/CydoEntis/maitty" class="btn-secondary"><span class="text-teal">›</span> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative">
+    <Waves />
+    <div class="relative z-[3] bg-water pt-[clamp(16px,3vw,32px)]">
+      <div class="relative z-[2] mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)] pb-[clamp(72px,10vw,128px)]">
+        <HeroDemo />
+        <p class="mt-4 mb-0 text-center font-mono text-[13px]/[normal] font-medium text-text"><span class="text-needs">●</span> bold-puffin is waiting for you. Answer it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .type { display: block; width: max-content; max-width: 100%; margin: 0 auto; }
+  .type-1 { animation: mtType .8s steps(10, end) .15s both; }
+  .type-2 { animation: mtType .7s steps(8, end) 1s both; }
+  .h1-cursor { display: inline-block; width: .5em; height: .9em; margin-left: .08em; vertical-align: -.05em; background: var(--teal); animation: mtBlink 1.1s steps(1) 1.7s infinite; }
+  .rise { animation: mtUp .7s var(--ease-out-soft) both; }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px;
+    border: 2px solid var(--line); border-radius: 3px; background: var(--card); color: var(--strong); text-decoration: none;
+    font: 700 14px var(--font-mono); box-shadow: 4px 4px 0 var(--line); transition: transform .12s, box-shadow .12s, border-color .2s;
+  }
+  .btn-secondary:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--teal); border-color: var(--teal); color: var(--strong); }
+  .btn-secondary:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--teal); }
+</style>

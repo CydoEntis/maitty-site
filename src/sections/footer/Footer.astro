@@ -1,0 +1,23 @@
+---
+const links = [
+  ["GitHub", "https://github.com/CydoEntis/maitty"],
+  ["Releases", "https://github.com/CydoEntis/maitty/releases"],
+  ["MIT License", "https://github.com/CydoEntis/maitty/blob/main/LICENSE"],
+];
+---
+<footer class="border-t border-line bg-bg">
+  <div class="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-[18px] px-[clamp(16px,4vw,32px)] pt-7 pb-9 font-mono text-[13px]/[normal] font-medium">
+    <div class="flex items-center gap-3 text-strong">
+      <img src="/img/maitty-logo.svg" alt="" width="34" height="29" class="h-auto w-[34px]" />
+      <b class="font-display tracking-[.04em]">M<span class="text-teal">AI</span>TTY</b>
+      <span class="text-muted" data-version hidden>version <a href="https://github.com/CydoEntis/maitty/releases/latest" class="text-teal"></a></span>
+    </div>
+    <nav aria-label="Footer" class="flex flex-wrap gap-x-[22px] gap-y-2">
+      {links.map(([label, href]) => <a class="inline-block py-1 text-text underline hover:text-teal" href={href}>{label}</a>)}
+    </nav>
+  </div>
+</footer>
+
+<script>
+  import "./version";
+</script>

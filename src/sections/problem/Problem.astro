@@ -1,0 +1,23 @@
+---
+// The waiting time counts up from ten minutes while the visitor reads.
+---
+<section aria-labelledby="p-title" class="border-t border-line py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
+    <h2 data-reveal id="p-title" class="m-0 mb-6 max-w-[24ch] font-display text-[clamp(26px,4.2vw,52px)]/[1.12] font-bold tracking-[-.035em] text-balance text-strong">
+      Five agents, five tabs, and one of them has been <span class="text-needs">waiting for you</span> for <span data-waiting class="tabular-nums">10:00</span>.
+    </h2>
+    <p class="m-0 max-w-[54ch] text-[clamp(18px,1.6vw,21px)] text-muted">Maitty keeps the whole crew in one window, shows what each agent is doing, and rings the bell the moment one needs you.</p>
+  </div>
+</section>
+
+<script>
+  import { onTick } from "../../lib/ticker";
+
+  const START_S = 600;
+  const el = document.querySelector<HTMLElement>("[data-waiting]")!;
+  const t0 = Date.now();
+  onTick(el, () => {
+    const s = START_S + Math.floor((Date.now() - t0) / 1000);
+    el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  });
+</script>

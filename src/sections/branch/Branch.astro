@@ -1,0 +1,66 @@
+---
+// "A branch per agent": every diff is in the HTML, the file list picks which
+// one shows. On a phone the file list comes first and the diff wraps.
+import { CHANGES } from "./files";
+---
+<section data-branch aria-labelledby="b-title" class="border-t border-line bg-card py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
+    <h2 data-reveal id="b-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">A branch per agent, review in place.</h2>
+    <p data-reveal class="m-0 mb-10 max-w-[60ch] text-muted">Each new agent gets its own Git worktree, so no two edit the same files. Files, changes and branches sit in a side panel; commit, merge or open a pull request without leaving.</p>
+    <div data-reveal class="term flex flex-col text-[13px]/[18px] [transition-delay:.15s] md:grid md:grid-cols-[minmax(0,1fr)_280px]">
+      <div class="flex min-w-0 flex-col">
+        <div class="flex h-6 items-center gap-2 bg-tm-bar px-2.5">
+          <span class="shrink-0 bg-tm-teal px-2 font-bold text-tm-ink">1  keen-gull</span>
+          <span class="ml-auto truncate text-tm-dim">⎇ feat/login<span class="max-sm:hidden"> · acme-store-worktrees/keen-gull</span></span>
+        </div>
+        <div tabindex="0" role="region" aria-label="Diff" class="overflow-x-auto py-3">
+          {CHANGES.map((f, i) => (
+            <div data-diff={i} hidden={i !== 0}>
+              <div class="code px-3.5 pb-1.5"><span class="text-tm-adim">└ </span><span class="text-tm-txt">Updated </span><span class="text-tm-strong">{f.path}</span><span class="text-tm-adim"> (+{f.added} −{f.removed})</span></div>
+              {f.diff.map((d) => (
+                <div class="code grid grid-cols-[3ch_2ch_minmax(0,1fr)] gap-1 px-3.5 sm:grid-cols-[6ch_2ch_minmax(0,1fr)]">
+                  <span class="text-right" style={`color:${d.c}`}>{d.n}</span><span style={`color:${d.c}`}>{d.k}</span><span>{d.segs.map((s) => <span style={`color:${s.c}`}>{s.t}</span>)}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-col border-tm-teal max-md:order-first max-md:border-b md:border-l">
+        <div class="flex h-6 items-center gap-1.5 bg-tm-bar px-2.5">
+          <span class="px-1.5 text-tm-dim">files</span><span class="bg-tm-teal px-1.5 font-bold text-tm-ink">changes</span><span class="px-1.5 text-tm-dim">branches</span>
+        </div>
+        <div class="flex flex-col py-2.5">
+          {CHANGES.map((f, i) => (
+            <button type="button" data-file={i} aria-pressed={i === 0 ? "true" : "false"} class="file grid w-full grid-cols-[2ch_minmax(0,1fr)_auto] gap-2 border-0 bg-transparent px-3 py-[3px] text-left text-tm-txt hover:bg-tm-sel max-md:min-h-11 max-md:items-center">
+              <span class="font-bold" style={`color:${f.mc}`}>{f.m}</span>
+              <span class="truncate text-tm-strong">{f.path}</span>
+              <span><span class="text-tm-green">+{f.added}</span> <span class="text-tm-red">−{f.removed}</span></span>
+            </button>
+          ))}
+        </div>
+        <div class="mt-auto flex flex-wrap gap-1.5 border-t border-tm-line px-2.5 py-2 max-md:hidden">
+          <span class="term-chip px-2"><b class="text-tm-teal">c</b> commit</span>
+          <span class="term-chip px-2"><b class="text-tm-teal">m</b> merge</span>
+          <span class="term-chip px-2"><b class="text-tm-teal">p</b> pull request</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .code { white-space: pre-wrap; word-break: break-word; animation: mtUp .25s ease-out both; }
+  @media (width >= 40rem) { .code { white-space: pre; word-break: normal; } }
+  .file[aria-pressed="true"] { background: var(--t-sel); box-shadow: inset 2px 0 0 var(--t-teal); }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-branch]")!;
+  section.addEventListener("click", (e) => {
+    const file = (e.target as Element).closest<HTMLElement>("[data-file]");
+    if (!file) return;
+    section.querySelectorAll<HTMLElement>("[data-file]").forEach((b) => b.setAttribute("aria-pressed", String(b === file)));
+    section.querySelectorAll<HTMLElement>("[data-diff]").forEach((d) => { d.hidden = d.dataset.diff !== file.dataset.file; });
+  });
+</script>

@@ -1,0 +1,41 @@
+---
+import { SESSIONS, rowLook } from "./rows";
+---
+<section data-close aria-labelledby="c-title" class="border-t border-line py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-center gap-[clamp(32px,5vw,64px)] px-[clamp(16px,4vw,32px)]">
+    <div>
+      <h2 data-reveal id="c-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Close it, come back.</h2>
+      <p data-reveal class="m-0 mb-[30px] max-w-[46ch] text-muted">A background service owns every session. Close the window, crash or reboot: your agents keep running, or come back in the right folders with their conversations resumed.</p>
+      <button type="button" data-close-toggle class="btn-primary h-12 px-5 whitespace-pre">✕ close the window</button>
+    </div>
+    <div data-reveal class="term flex min-h-[300px] flex-col text-[13px]/[20px] [transition-delay:.15s] sm:text-sm/[20px]">
+      <div class="flex h-[26px] items-center justify-between bg-tm-bar px-3">
+        <span data-close-chip class="chip px-1.5 font-bold">SESSIONS 5</span><span data-close-bar class="text-tm-dim">open</span>
+      </div>
+      <div data-close-rows class="flex flex-1 flex-col gap-1 p-3.5 transition-opacity duration-500">
+        {SESSIONS.map(([name, dir, state]) => {
+          const look = rowLook(state, "open");
+          return (
+            <div data-close-row={state} class="close-row grid grid-cols-[2ch_minmax(0,1fr)_auto] gap-2 px-1.5 py-[3px]">
+              <span data-glyph data-spin={look.spin ? "" : undefined} class="font-bold" style={`color:${look.gc}`}>{look.spin ? "⠴" : look.glyph}</span>
+              <span data-name class="font-bold" style={`color:${look.nc}`}>{name} <span class="font-normal text-tm-dim max-sm:block">{dir}</span></span>
+              <span data-tag style={`color:${look.tc}`}>{look.tag}</span>
+            </div>
+          );
+        })}
+      </div>
+      <div data-close-foot class="border-t border-tm-line px-3.5 py-2.5 text-tm-adim">close the window, then come back</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .chip { background: var(--t-teal); color: var(--t-ink); transition: all .3s; }
+  [data-closed] .chip { background: var(--t-chip); color: var(--t-dim); }
+  [data-closed] [data-close-rows] { opacity: .6; }
+  .close-row { animation: mtUp .4s ease-out both; }
+</style>
+
+<script>
+  import "./close";
+</script>

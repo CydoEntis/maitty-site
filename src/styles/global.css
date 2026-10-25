@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* Tokens are the designer's prototype ("Maitty Landing v2"). AA: a few greys,
+   Day amber and Day teal sit one step darker (or, at Night, lighter) than the
+   handoff so text clears 4.5:1 on every surface it meets. The page switches
+   them with data-theme on <html>, set before first paint by /boot.js. */
+@font-face { font-family: "Martian Mono"; font-weight: 700; font-display: swap; src: url("/fonts/martian-mono-700.woff2") format("woff2"); }
+@font-face { font-family: "Martian Mono"; font-weight: 800; font-display: swap; src: url("/fonts/martian-mono-800.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-weight: 400; font-display: swap; src: url("/fonts/instrument-sans-400.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-weight: 600; font-display: swap; src: url("/fonts/instrument-sans-600.woff2") format("woff2"); }
+/* The full JetBrains Mono, not a latin subset: the terminal mocks use
+   box-drawing and braille characters that the subsets leave out. */
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: swap; src: url("/fonts/jetbrains-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 600; font-display: swap; src: url("/fonts/jetbrains-mono-600.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 700; font-display: swap; src: url("/fonts/jetbrains-mono-700.woff2") format("woff2"); }
+
+:root {
+  --t-bg:#08111d;--t-bar:#0f1b2b;--t-chip:#1a2c44;--t-sel:#1f2935;--t-line:#1d2d42;--t-teal:#3dd6c6;--t-work:#92e5e0;--t-green:#7fd99a;--t-amber:#f5c542;--t-yel:#f2c75c;--t-red:#ff7b72;--t-dim:#8092a5;--t-adim:#919191;--t-txt:#d0d0d0;--t-bash:#b2dada;--t-blue:#6cb6ff;--t-strong:#eef5fb;--t-c9:#c9d6e3;--t-user:#15253a;--t-d1:#e8c565;--t-d2:#c792ea;--t-d3:#ff7ab6;--t-d4:#a593ff;--t-alt:#0b1626;--t-rule:#8394a8;--t-ink:#08111d;
+  --bg:#08111d;--card:#0f1b2b;--raised:#15253a;--key:#1a2c44;--line:#1d2d42;--text:#c9d6e3;--strong:#eef5fb;--foam:#e8f1f8;--teal:#3dd6c6;--needs:#f5c542;--done:#7fd99a;--fail:#ff7b72;--dim:#8092a5;--muted:#9aabbd;--sea:#1f6f8b;--deep:#123049;--ink:#08111d;--hard:#0a5a63;
+  --shadow:0 40px 120px -40px rgba(0,0,0,.85);--water:#0d1d2f;--crest:#1f6f8b;
+  --shipf:brightness(.9) saturate(.94) drop-shadow(0 0 1px rgba(232,241,248,.3)) drop-shadow(0 18px 28px rgba(0,0,0,.4));
+  --sky-night:block;--sky-day:none;
+}
+[data-theme="day"] {
+  --t-bg:#ffffff;--t-bar:#edf2f6;--t-chip:#dde5ed;--t-sel:#e6eef5;--t-line:#d3dce5;--t-teal:#0b7a71;--t-work:#0a6b63;--t-green:#277a4c;--t-amber:#995b00;--t-yel:#946000;--t-red:#b3261e;--t-dim:#5a6c80;--t-adim:#6b7785;--t-txt:#1f2f3f;--t-bash:#0f5f59;--t-blue:#1f6fd1;--t-strong:#0b1724;--t-c9:#1f2f3f;--t-user:#e8f0f6;--t-d1:#946d00;--t-d2:#8a4fc0;--t-d3:#c2306f;--t-d4:#5b49d6;--t-alt:#f3f6f9;--t-rule:#9aa8b6;--t-ink:#ffffff;
+  --bg:#f6f8fa;--card:#ffffff;--raised:#edf2f6;--key:#e2e9f0;--line:#d3dce5;--text:#1f2f3f;--strong:#0b1724;--foam:#0b1724;--teal:#0a7169;--needs:#b06a00;--done:#277a4c;--fail:#b3261e;--dim:#5a6c80;--muted:#46576a;--sea:#5f9db3;--deep:#d8e2ea;--ink:#ffffff;--hard:#0b1724;
+  --shadow:0 40px 100px -40px rgba(11,23,36,.22);--water:#d9e8ef;--crest:#9cc6d6;
+  --shipf:drop-shadow(0 18px 24px rgba(11,23,36,.12));
+  --sky-night:none;--sky-day:block;
+}
+
+@theme inline {
+  --font-display: "Martian Mono", monospace;
+  /* Fallbacks with the same 0.6em advance, so text keeps its wrapping when the web font swaps in. */
+  --font-mono: "JetBrains Mono", "Courier New", Cousine, "Liberation Mono", Menlo, monospace;
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-strong: var(--strong);
+  --color-foam: var(--foam);
+  --color-teal: var(--teal);
+  --color-needs: var(--needs);
+  --color-done: var(--done);
+  --color-fail: var(--fail);
+  --color-dim: var(--dim);
+  --color-muted: var(--muted);
+  --color-ink: var(--ink);
+  --color-hard: var(--hard);
+  --color-water: var(--water);
+  --color-crest: var(--crest);
+  --color-tm-bg: var(--t-bg);
+  --color-tm-bar: var(--t-bar);
+  --color-tm-chip: var(--t-chip);
+  --color-tm-sel: var(--t-sel);
+  --color-tm-line: var(--t-line);
+  --color-tm-teal: var(--t-teal);
+  --color-tm-work: var(--t-work);
+  --color-tm-green: var(--t-green);
+  --color-tm-amber: var(--t-amber);
+  --color-tm-yel: var(--t-yel);
+  --color-tm-red: var(--t-red);
+  --color-tm-dim: var(--t-dim);
+  --color-tm-adim: var(--t-adim);
+  --color-tm-txt: var(--t-txt);
+  --color-tm-bash: var(--t-bash);
+  --color-tm-strong: var(--t-strong);
+  --color-tm-c9: var(--t-c9);
+  --color-tm-user: var(--t-user);
+  --color-tm-alt: var(--t-alt);
+  --color-tm-rule: var(--t-rule);
+  --color-tm-ink: var(--t-ink);
+  --color-tm-d1: var(--t-d1);
+  --color-tm-d2: var(--t-d2);
+  --color-tm-d3: var(--t-d3);
+  --color-tm-d4: var(--t-d4);
+  --shadow-term: var(--shadow);
+  --radius-btn: 3px;
+  --radius-card: 6px;
+  --radius-term: 10px;
+  --ease-out-soft: cubic-bezier(.2, .7, .2, 1);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 17px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; transition: background-color .4s, color .4s; }
+  a { color: var(--teal); text-underline-offset: 3px; }
+  a:hover { color: var(--strong); }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+  ::selection { background: #3dd6c6; color: #08111d; }
+}
+
+@keyframes mtBlink { 50% { opacity: 0 } }
+@keyframes mtUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+@keyframes mtWave { to { -webkit-mask-position: 600px 0; mask-position: 600px 0 } }
+@keyframes mtShip { 0%,100% { transform: translateY(0) rotate(-.6deg) } 50% { transform: translateY(-4px) rotate(.6deg) } }
+@keyframes mtType { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+@keyframes mtDrop { from { opacity: 0; transform: translateY(-10px) } to { opacity: 1; transform: none } }
+@keyframes mtTwinkle { 0%,100% { opacity: var(--o, .6) } 50% { opacity: .15 } }
+@keyframes mtCloud { from { transform: translateX(0) } to { transform: translateX(48px) } }
+
+/* boot.js adds .js only when a script will reveal the content again. */
+.js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease-out-soft), transform .8s var(--ease-out-soft); }
+.js [data-reveal][data-in] { opacity: 1; transform: none; }
+/* A section off screen stops its decoration until it is back (lib/motion.ts). */
+[data-paused], [data-paused] * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+@layer components {
+  /* The teal hard-shadow button (copy, close the window). */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px;
+    border: 2px solid var(--teal); border-radius: 3px; background: var(--teal); color: var(--ink);
+    font: 700 14px var(--font-mono); box-shadow: 4px 4px 0 var(--hard);
+    transition: transform .12s, box-shadow .12s, background-color .2s;
+  }
+  .btn-primary:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--hard); }
+  .btn-primary:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--hard); }
+  /* A terminal window: the frame every app mock sits in. */
+  .term {
+    background: var(--t-bg); border: 1px solid var(--t-line); border-radius: 10px; overflow: hidden;
+    box-shadow: var(--shadow); color: var(--t-txt); font-family: var(--font-mono);
+  }
+  .term-chip { padding: 0 6px; background: var(--t-chip); color: var(--t-c9); }
+}

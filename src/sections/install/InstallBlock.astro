@@ -1,0 +1,66 @@
+---
+// The install card, used in the hero and again at #install. Both commands are
+// in the HTML; <html data-os> (set by /boot.js, changed by the tabs) shows one.
+// With no script, both show.
+import { COMMANDS, OSES } from "./commands";
+
+interface Props {
+  id: string;
+  variant: "hero" | "footer";
+}
+const { id, variant } = Astro.props;
+const panel = `install-${id}`;
+---
+<div class="w-full overflow-hidden rounded-card border border-line bg-card text-left">
+  <div class="flex items-stretch border-b border-line bg-raised">
+    <div role="tablist" aria-label="Your operating system" class="flex">
+      {OSES.map((os) => (
+        <button type="button" role="tab" id={`${panel}-${os}`} aria-controls={panel} aria-selected={os === "win" ? "true" : "false"} data-os-tab={os} class="os-tab min-h-11 border-0 border-r border-line px-3.5 font-mono text-[13px] font-bold sm:px-[18px]">
+          {COMMANDS[os].tab}
+        </button>
+      ))}
+    </div>
+    <span class="ml-auto flex items-center px-3.5 font-mono text-xs/[normal] font-medium text-dim max-[419px]:hidden">
+      {OSES.map((os) => <span data-os-only={os}>{COMMANDS[os].shell}</span>)}
+    </span>
+  </div>
+  {variant === "hero" ? (
+    <div role="tabpanel" id={panel} class="px-[18px] pt-[18px] pb-2">
+      {OSES.map((os) => (
+        <code data-os-only={os} class="block font-mono text-sm/[1.65] break-all whitespace-pre-wrap text-strong">
+          <span class="font-bold text-teal select-none">{COMMANDS[os].prompt} </span>{COMMANDS[os].cmd}<span class="cursor ml-1 inline-block h-[1.1em] w-[.6em] bg-teal align-[-.15em]"></span>
+        </code>
+      ))}
+    </div>
+    <div class="flex flex-wrap items-center justify-between gap-3 px-[18px] pt-3 pb-[18px]">
+      <span class="text-sm text-muted">Then run <code class="rounded-btn border border-line bg-raised px-1.5 py-px font-mono text-[13px] font-semibold text-strong">maitty</code> in any project folder.</span>
+      <button type="button" data-copy class="btn-primary gap-[1ch]"><span aria-hidden="true" data-copy-icon>⧉</span><span data-copy-label>copy</span><span class="sr-only"> install command</span></button>
+    </div>
+  ) : (
+    <div role="tabpanel" id={panel} class="flex flex-wrap items-center gap-3.5 p-[18px]">
+      <div class="min-w-0 flex-[1_1_300px]">
+        {OSES.map((os) => (
+          <code data-os-only={os} class="block font-mono text-sm/[1.65] break-all whitespace-pre-wrap text-strong">
+            <span class="font-bold text-teal select-none">{COMMANDS[os].prompt} </span>{COMMANDS[os].cmd}
+          </code>
+        ))}
+      </div>
+      <button type="button" data-copy class="btn-primary gap-[1ch]"><span aria-hidden="true" data-copy-icon>⧉</span><span data-copy-label>copy</span><span class="sr-only"> install command</span></button>
+    </div>
+  )}
+</div>
+
+<style>
+  .os-tab { background: transparent; color: var(--muted); transition: color .2s, background-color .2s; }
+  :global(html[data-os="win"]) .os-tab[data-os-tab="win"],
+  :global(html[data-os="nix"]) .os-tab[data-os-tab="nix"] { background: var(--card); color: var(--strong); }
+  :global(html[data-os="win"]) [data-os-only="nix"],
+  :global(html[data-os="nix"]) [data-os-only="win"] { display: none; }
+  .cursor { animation: mtBlink 1.1s steps(1) infinite; }
+  [data-copied="ok"] { background: var(--done); }
+  [data-copy-icon]:empty { display: none; }
+</style>
+
+<script>
+  import "./install";
+</script>

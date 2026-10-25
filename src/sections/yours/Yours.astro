@@ -1,0 +1,88 @@
+---
+// "Make it yours": the layout buttons restyle the preview (CSS keyed on
+// data-layout); the theme cards switch the whole page (header/theme.ts).
+const LAYOUTS = [
+  { k: "floating", name: "Floating", desc: "Boxes with gaps, the default." },
+  { k: "tiled", name: "Tiled", desc: "Boxes edge to edge." },
+  { k: "compact", name: "Compact", desc: "Full-bleed zones with square edges." },
+  { k: "grid", name: "Grid", desc: "Each pane in its own colour, by its place." },
+];
+const THEMES = [
+  { k: "night", label: "Night", bg: "#08111d", fg: "#eef5fb", panel: "#0f1b2b", teal: "#3dd6c6", work: "#92e5e0", needs: "#f5c542", done: "#7fd99a" },
+  { k: "day", label: "Day", bg: "#f6f8fa", fg: "#0b1724", panel: "#ffffff", teal: "#0b7a71", work: "#0b7a71", needs: "#b06a00", done: "#277a4c" },
+];
+---
+<section data-yours aria-labelledby="y-title" class="border-t border-line py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
+    <h2 data-reveal id="y-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Make it yours.</h2>
+    <p data-reveal class="m-0 mb-9 max-w-[56ch] text-muted">Four layouts, 60+ themes, square or rounded shapes, and every key configurable.</p>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] gap-6">
+      <div class="flex flex-col gap-3.5">
+        <div role="group" aria-label="Layout" class="flex flex-wrap gap-2">
+          {LAYOUTS.map((l, i) => (
+            <button type="button" data-layout-pick={l.k} aria-pressed={i === 0 ? "true" : "false"} class="layout-btn h-11 rounded-btn border-2 px-3.5 font-mono text-[13px] font-bold">{l.name.toLowerCase()}</button>
+          ))}
+        </div>
+        <div aria-hidden="true" data-layout="floating" class="preview grid grid-cols-[42%_1fr_1fr] sm:grid-cols-[32%_1fr_1fr] grid-rows-[110px_110px] overflow-hidden rounded-term border border-tm-line bg-tm-bg font-mono text-xs/4 text-tm-txt sm:text-[11px]/4">
+          <div class="p row-span-2"><span class="bg-tm-chip px-1 font-bold text-tm-strong">SESSIONS</span><br /><span class="text-tm-amber">●</span> bold-puffin<br /><span class="text-tm-teal">⠴</span> <span class="text-tm-work">swift-otter</span><br /><span class="text-tm-green">●</span> <span class="text-tm-green">calm-heron</span></div>
+          <div class="p row-span-2"><span class="text-tm-green">●</span> Bash(cargo test)<br /><span class="text-tm-adim">└ 214 passed</span></div>
+          <div class="p"><span class="text-tm-teal">$</span> pnpm dev</div>
+          <div class="p"><span class="text-tm-teal">$</span> lazygit</div>
+        </div>
+        {LAYOUTS.map((l, i) => (
+          <p data-layout-desc={l.k} hidden={i !== 0} class="m-0 font-mono text-sm/[normal] font-medium text-text"><b class="text-strong">{l.name}.</b> {l.desc}</p>
+        ))}
+      </div>
+      <div class="grid grid-cols-2 content-start gap-4">
+        {THEMES.map((t) => (
+          <button type="button" data-theme-pick={t.k} aria-pressed={t.k === "night" ? "true" : "false"} class="theme-card flex flex-col gap-3 rounded-card border-2 p-4 text-left" style={`background:${t.bg};color:${t.fg}`}>
+            <span class="font-mono text-sm/[normal] font-bold">{t.label}</span>
+            <span class="flex flex-col gap-0.5 p-2.5 font-mono text-xs/[1.6]" style={`background:${t.panel}`}>
+              <span><span style={`color:${t.teal}`}>⠴</span> <span style={`color:${t.work}`}>swift-otter</span></span>
+              <span><span style={`color:${t.needs}`}>●</span> bold-puffin</span>
+              <span><span style={`color:${t.done}`}>●</span> <span style={`color:${t.done}`}>calm-heron</span></span>
+            </span>
+            <span class="font-mono text-xs/[normal] font-medium opacity-80"><span class="hint-on">● this page</span><span class="hint-off">click to switch the page</span></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout-btn { border-color: var(--line); background: var(--bg); color: var(--text); transition: all .15s; }
+  .layout-btn[aria-pressed="true"] { border-color: var(--teal); background: var(--teal); color: var(--ink); }
+
+  .preview { --gap: 8px; --pad: 8px; --rad: 8px; gap: var(--gap); padding: var(--pad); transition: all .35s; }
+  .p { padding: 6px 8px; border: 1px solid var(--t-line); border-radius: var(--rad); background: var(--t-bg); transition: all .35s; }
+  .p:nth-child(2) { border-color: var(--t-teal); }
+  [data-layout="tiled"] { --gap: 0px; --pad: 6px; --rad: 0px; }
+  [data-layout="compact"] { --gap: 1px; --pad: 0px; --rad: 0px; }
+  [data-layout="compact"] .p { border-color: transparent; border-width: 0; }
+  [data-layout="compact"] .p:nth-child(even) { background: var(--t-alt); }
+  [data-layout="grid"] .p:nth-child(3) { border-color: var(--t-d2); }
+  [data-layout="grid"] .p:nth-child(4) { border-color: var(--t-yel); }
+
+  .theme-card { border-color: var(--line); transition: all .15s; }
+  .theme-card:hover { transform: translate(-2px, -2px); }
+  .hint-on { display: none; }
+  :global([data-theme="night"]) .theme-card[data-theme-pick="night"],
+  :global([data-theme="day"]) .theme-card[data-theme-pick="day"] { border-color: var(--teal); box-shadow: 4px 4px 0 var(--teal); }
+  :global([data-theme="night"]) [data-theme-pick="night"] .hint-on,
+  :global([data-theme="day"]) [data-theme-pick="day"] .hint-on { display: inline; }
+  :global([data-theme="night"]) [data-theme-pick="night"] .hint-off,
+  :global([data-theme="day"]) [data-theme-pick="day"] .hint-off { display: none; }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-yours]")!;
+  section.addEventListener("click", (e) => {
+    const pick = (e.target as Element).closest<HTMLElement>("[data-layout-pick]");
+    if (!pick) return;
+    const layout = pick.dataset.layoutPick!;
+    section.querySelector<HTMLElement>("[data-layout]")!.dataset.layout = layout;
+    section.querySelectorAll<HTMLElement>("[data-layout-pick]").forEach((b) => b.setAttribute("aria-pressed", String(b === pick)));
+    section.querySelectorAll<HTMLElement>("[data-layout-desc]").forEach((d) => { d.hidden = d.dataset.layoutDesc !== layout; });
+  });
+</script>

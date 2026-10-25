@@ -1,0 +1,53 @@
+---
+import "../styles/global.css";
+import Header from "../sections/header/Header.astro";
+import Footer from "../sections/footer/Footer.astro";
+
+const title = "Maitty: run your coding agents side by side";
+const description = "A terminal workspace for Claude Code, Codex, Gemini, OpenCode and other command-line agents. See which one needs you, and keep them running when you close the window. Free and open source.";
+const url = "https://maitty.app/";
+const card = "https://maitty.app/img/og-card.png";
+---
+<!doctype html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:title" content="Maitty: all agents on deck" />
+    <meta property="og:description" content="Run your coding agents side by side, and always know which one needs you. Free and open source for Windows, macOS and Linux." />
+    <meta property="og:image" content={card} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Maitty. All agents on deck." />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Maitty" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Maitty: all agents on deck" />
+    <meta name="twitter:description" content="Run your coding agents side by side, and always know which one needs you." />
+    <meta name="twitter:image" content={card} />
+    <meta name="theme-color" content="#08111d" />
+    <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/martian-mono-800.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-700.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline src="/boot.js"></script>
+  </head>
+  <body class="overflow-x-clip">
+    <a class="fixed top-2 -left-[9999px] z-30 rounded-btn bg-teal px-3.5 py-2.5 font-mono text-sm font-bold text-ink focus:left-2" href="#top">Skip to content</a>
+    <Header />
+    <main id="top">
+      <slot />
+    </main>
+    <Footer />
+    <div id="live" aria-live="polite" class="sr-only"></div>
+    <script>
+      import "../lib/motion";
+    </script>
+  </body>
+</html>

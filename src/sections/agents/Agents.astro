@@ -1,0 +1,14 @@
+---
+const AGENTS = [["✻", "Claude Code"], ["◆", "Codex"], ["✦", "Gemini CLI"], ["◇", "OpenCode"], ["·", "Qwen"], ["·", "Pi"], ["·", "Kilo"], ["·", "Kimi"], ["·", "Mastra Code"]];
+---
+<section aria-labelledby="a-title" class="border-t border-line bg-card py-[clamp(72px,10vw,128px)]">
+  <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
+    <h2 data-reveal id="a-title" class="m-0 mb-9 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Works with your agents.</h2>
+    <ul class="m-0 mb-7 grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,220px),1fr))] gap-x-10 border-t border-line p-0">
+      {AGENTS.map(([mark, name]) => (
+        <li class="flex items-center gap-3 border-b border-line py-3.5 font-mono text-[15px]/[normal] font-bold text-strong"><span aria-hidden="true" class="w-[1.2em] text-teal">{mark}</span>{name}</li>
+      ))}
+    </ul>
+    <p class="m-0 text-muted">Any command-line agent works; these report exact status. Connect one with <code class="rounded-btn border border-line bg-raised px-1.5 py-px font-mono text-sm font-semibold text-strong">maitty integrate claude</code>.</p>
+  </div>
+</section>
