@@ -193,7 +193,7 @@
         <dl class="states">
           <div><dt><span class="glyph working" aria-hidden="true">⠴</span> working</dt><dd>Busy on its turn.</dd></div>
           <div><dt><span class="glyph needs" aria-hidden="true">●</span> needs you</dt><dd>A question or approval is waiting.</dd></div>
-          <div><dt><span class="glyph done" aria-hidden="true">●</span> done</dt><dd>The turn finished and its checks passed.</dd></div>
+          <div><dt><span class="glyph done" aria-hidden="true">●</span> done</dt><dd>The turn finished (and its checks passed, if you set any).</dd></div>
           <div><dt><span class="glyph idle" aria-hidden="true">○</span> idle</dt><dd>Nothing running.</dd></div>
         </dl>
       </div>
@@ -679,6 +679,7 @@
           <p>Name a command, such as your tests. Maitty runs it after every turn, so a broken turn reads <b>failed</b>, not <b>done</b>.</p>
 <pre class="code"><span class="c"># config.toml</span>
 [[check]]
+<span class="k">project</span> = <span class="s">"/home/me/code/my-app"</span>
 <span class="k">name</span>    = <span class="s">"test"</span>
 <span class="k">command</span> = <span class="s">"cargo test"</span></pre>
         </div>
