@@ -20,7 +20,7 @@ const panel = `install-${id}`;
         </button>
       ))}
     </div>
-    <span class="ml-auto flex items-center px-3.5 font-mono text-xs/[normal] font-medium text-dim max-[419px]:hidden">
+    <span class="ml-auto flex items-center px-3.5 font-mono text-xs/[normal] font-medium text-dim">
       {OSES.map((os) => <span data-os-only={os}>{COMMANDS[os].shell}</span>)}
     </span>
   </div>
