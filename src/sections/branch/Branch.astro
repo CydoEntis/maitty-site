@@ -6,12 +6,12 @@ import { CHANGES } from "./files";
 <section data-branch aria-labelledby="b-title" class="border-t border-line bg-card py-[clamp(72px,10vw,128px)]">
   <div class="mx-auto max-w-[1280px] px-[clamp(16px,4vw,32px)]">
     <h2 data-reveal id="b-title" class="m-0 mb-4 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">A branch per agent, review in place.</h2>
-    <p data-reveal class="m-0 mb-10 max-w-[60ch] text-muted">Each new agent gets its own Git worktree, so no two edit the same files. Files, changes and branches sit in a side panel; commit, merge or open a pull request without leaving.</p>
+    <p data-reveal class="m-0 mb-10 max-w-[60ch] text-muted">Each new agent gets its own Git worktree, so no two edit the same files. Files, Changes and Branch sit in a side panel; commit, merge or open a pull request (with the GitHub CLI) without leaving.</p>
     <div data-reveal class="term flex flex-col text-[13px]/[18px] [transition-delay:.15s] md:grid md:grid-cols-[minmax(0,1fr)_280px]">
       <div class="flex min-w-0 flex-col">
         <div class="flex h-6 items-center gap-2 bg-tm-bar px-2.5">
           <span class="shrink-0 bg-tm-teal px-2 font-bold text-tm-ink">1  keen-gull</span>
-          <span class="ml-auto truncate text-tm-dim">⎇ feat/login<span class="phone:hidden"> · acme-store-worktrees/keen-gull</span></span>
+          <span class="ml-auto truncate text-tm-dim">⎇ feat/login<span class="phone:hidden"> · acme-store-worktrees/feat-login</span></span>
         </div>
         <div tabindex="0" role="region" aria-label="Diff" class="overflow-x-auto py-3">
           {CHANGES.map((f, i) => (
@@ -28,7 +28,7 @@ import { CHANGES } from "./files";
       </div>
       <div class="flex flex-col border-tm-teal max-md:border-t md:border-l">
         <div class="flex h-6 items-center gap-1.5 bg-tm-bar px-2.5">
-          <span class="px-1.5 text-tm-dim">files</span><span class="bg-tm-teal px-1.5 font-bold text-tm-ink">changes</span><span class="px-1.5 text-tm-dim">branches</span>
+          <span class="px-1.5 text-tm-dim">files</span><span class="bg-tm-teal px-1.5 font-bold text-tm-ink">changes</span><span class="px-1.5 text-tm-dim">branch</span>
         </div>
         <div class="flex flex-col py-2.5">
           {CHANGES.map((f, i) => (
