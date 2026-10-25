@@ -7,6 +7,6 @@ Requires=docker.service
 [Service]
 Type=oneshot
 WorkingDirectory=/srv/maitty
-ExecStart=/usr/bin/docker compose pull --quiet
-ExecStart=/usr/bin/docker compose up -d --remove-orphans
-ExecStart=/usr/bin/docker image prune -f
+ExecStart=/usr/bin/flock /run/lock/app-update.lock /usr/bin/docker compose pull --quiet
+ExecStart=/usr/bin/flock /run/lock/app-update.lock /usr/bin/docker compose up -d --remove-orphans
+ExecStart=/usr/bin/flock /run/lock/app-update.lock /usr/bin/docker image prune -f
