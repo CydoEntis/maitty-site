@@ -30,22 +30,26 @@ function setGlyph(el: HTMLElement, spinning: boolean, still: string) {
   el.textContent = spinning ? spinGlyph() : still;
 }
 
+// A session shows as a list row and, on phones, as a chip; only rows carry a sub line.
 function paintRow(id: SessionId) {
   const s = S[id];
-  const row = $(`[data-session="${id}"]`);
   const look = lookOf(s);
-  row.dataset.look = look;
-  row.setAttribute("aria-current", String(id === sel));
-  setGlyph(row.querySelector("[data-glyph]")!, look === "working", staticGlyph(look));
-  const subEl = row.querySelector<HTMLElement>("[data-sub]")!;
-  subEl.textContent = subOf(s);
-  subEl.hidden = !subEl.textContent;
+  root.querySelectorAll<HTMLElement>(`[data-session="${id}"]`).forEach((row) => {
+    row.dataset.look = look;
+    row.setAttribute("aria-current", String(id === sel));
+    setGlyph(row.querySelector("[data-glyph]")!, look === "working", staticGlyph(look));
+    const subEl = row.querySelector<HTMLElement>("[data-sub]");
+    if (!subEl) return;
+    subEl.textContent = subOf(s);
+    subEl.hidden = !subEl.textContent;
+  });
 }
 
 function paintNeedsCount() {
   const n = Object.values(S).filter((s) => s.state === "needs").length;
-  root.querySelectorAll<HTMLElement>("[data-needs-count], [data-needs-badge]").forEach((el) => { el.textContent = `●${n}`; });
-  $("[data-needs-badge]").style.opacity = n ? "1" : ".25";
+  const badge = $("[data-needs-badge]");
+  badge.textContent = `●${n}`;
+  badge.style.opacity = n ? "1" : ".25";
 }
 
 function secondsOf(s: Session) {
@@ -84,11 +88,6 @@ function paint() {
   ORDER.forEach(paintRow);
   paintNeedsCount();
   paintPane();
-}
-
-function showView(view: "list" | "pane") {
-  root.dataset.view = view;
-  root.querySelectorAll<HTMLElement>("[data-show]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.show === view)));
 }
 
 function select(id: SessionId) {
@@ -139,11 +138,9 @@ function answer(id: SessionId, choice: number) {
 root.addEventListener("click", (e) => {
   const target = e.target as Element;
   const row = target.closest<HTMLElement>("[data-session]");
-  if (row) { select(row.dataset.session as SessionId); showView("pane"); }
+  if (row) select(row.dataset.session as SessionId);
   const option = target.closest<HTMLElement>("[data-answer]");
   if (option) answer(sel, Number(option.dataset.answer));
-  const view = target.closest<HTMLElement>("[data-show]");
-  if (view) showView(view.dataset.show === "list" ? "list" : "pane");
 });
 
 root.addEventListener("keydown", (e) => {
@@ -154,4 +151,3 @@ root.addEventListener("keydown", (e) => {
 });
 
 onTick(root, (frame) => { if (S[sel].state === "working") paintBusy(frame); else $("[data-pane-clock]").textContent = clockText(secondsOf(S[sel])); });
-showView("pane");

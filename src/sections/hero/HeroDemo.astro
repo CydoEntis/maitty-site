@@ -1,9 +1,9 @@
 ---
 // The interactive app in the hero: five sessions, one waiting for an answer.
-// On a phone it shows one view at a time (the session list or the open pane),
-// switched by the two buttons on top; from md up both sit side by side.
+// On a phone the session list gives way to a strip of chips above the pane;
+// a chip and its list row share data-session, so demo.ts paints both.
 import { STATES } from "../../lib/states";
-import { ASK, FIRST, GROUPS, INITIAL, OPTIONS, clockText, DEFAULT_AGE_S, lookOf, paneGlyph, staticGlyph, subOf } from "./demo-data";
+import { ASK, FIRST, GROUPS, INITIAL, OPTIONS, ORDER, clockText, DEFAULT_AGE_S, lookOf, paneGlyph, staticGlyph, subOf } from "./demo-data";
 import { transcriptHtml } from "./transcript";
 
 const first = INITIAL[FIRST];
@@ -11,18 +11,21 @@ const ask = ASK[FIRST]!;
 const needs = Object.values(INITIAL).filter((s) => s.state === "needs").length;
 ---
 <figure aria-label="Interactive Maitty demo" class="term m-0 text-[13px]/[18px]">
-  <div data-demo role="group" tabindex="0" aria-label="Demo. Arrow keys choose a session; 1, 2 or 3 answers." class="relative md:grid md:min-h-[470px] md:grid-cols-[minmax(240px,300px)_minmax(0,1fr)]">
-    <div class="view-switch flex border-b border-tm-line bg-tm-bar md:hidden">
-      <button type="button" data-show="list" aria-pressed="false" class="view-btn min-h-11 flex-1 border-0 px-3 text-left">
-        <b>SESSIONS</b> 5 <span data-needs-count class="font-bold text-tm-amber">●{needs}</span>
-      </button>
-      <button type="button" data-show="pane" aria-pressed="true" class="view-btn min-h-11 flex-1 border-0 border-l border-tm-line px-3 text-left">
-        <span aria-hidden="true">›</span> <span data-pane-name>{first.name}</span>
-      </button>
+  <div data-demo role="group" tabindex="0" aria-label="Demo. Arrow keys choose a session; 1, 2 or 3 answers." class="relative flex flex-col md:grid md:min-h-[470px] md:grid-cols-[minmax(240px,300px)_minmax(0,1fr)]">
+    <div role="group" aria-label="Sessions" class="strip hidden gap-1.5 overflow-x-auto border-b border-tm-line bg-tm-bar p-2.5 phone:flex">
+      {ORDER.map((id) => {
+        const s = INITIAL[id];
+        const look = lookOf(s);
+        return (
+          <button type="button" data-session={id} data-look={look} aria-current={id === FIRST ? "true" : "false"} class="flex h-8 flex-none items-center gap-1.5 rounded-btn border border-tm-line bg-transparent px-2.5 font-bold whitespace-nowrap text-inherit">
+            <span data-glyph data-spin={look === "working" ? "" : undefined}>{look === "working" ? "⠴" : staticGlyph(look)}</span><span data-name>{s.name}</span>
+          </button>
+        );
+      })}
     </div>
 
-    <div data-view-list class="flex flex-col md:border-r md:border-tm-teal">
-      <div class="flex h-6 items-center justify-between bg-tm-bar px-2.5 max-md:hidden">
+    <div class="flex flex-col border-tm-teal max-md:border-b md:border-r phone:hidden">
+      <div class="flex h-6 items-center justify-between bg-tm-bar px-2.5">
         <span class="bg-tm-chip px-1.5 text-tm-strong"><b>SESSIONS</b> 5</span>
         <span data-needs-badge class="font-bold text-tm-amber transition-opacity duration-300">●{needs}</span>
       </div>
@@ -56,7 +59,7 @@ const needs = Object.values(INITIAL).filter((s) => s.state === "needs").length;
       </div>
     </div>
 
-    <div data-view-pane class="flex min-w-0 flex-col">
+    <div class="flex min-w-0 flex-col">
       <div class="flex h-6 items-center gap-2 bg-tm-bar px-2.5">
         <span class="truncate bg-tm-teal px-2 font-bold text-tm-ink">1  <span data-pane-name>{first.name}</span></span>
         <span class="font-bold text-tm-teal">+</span>
@@ -82,7 +85,7 @@ const needs = Object.values(INITIAL).filter((s) => s.state === "needs").length;
       </div>
       <div class="px-3.5 pb-2.5">
         <div class="mb-1.5 border-y border-tm-rule py-[3px]"><span class="text-tm-txt">› </span><span class="caret inline-block h-3.5 w-px bg-tm-txt align-[-2px]"></span></div>
-        <div class="flex flex-wrap justify-between gap-x-4 gap-y-1 pl-[2ch]">
+        <div class="flex flex-wrap justify-between gap-x-4 gap-y-1 pl-[2ch] phone:hidden">
           <span><span class="font-bold text-tm-yel">▸▸ auto mode on</span><span class="text-tm-adim"> (shift+tab to cycle) · </span><span class="text-tm-txt">← 1 agent</span></span>
           <span data-pane-clock class="text-tm-adim">{clockText(DEFAULT_AGE_S)}</span>
         </div>
@@ -97,28 +100,24 @@ const needs = Object.values(INITIAL).filter((s) => s.state === "needs").length;
 </figure>
 
 <style>
-  .row[aria-current="true"] { background: var(--t-sel); box-shadow: inset 2px 0 0 var(--t-teal); }
+  [data-session][aria-current="true"] { background: var(--t-sel); box-shadow: inset 2px 0 0 var(--t-teal); }
   .row [data-sub] { color: var(--t-dim); }
-  .row[data-look="working"] [data-glyph] { color: var(--t-teal); }
-  .row[data-look="working"] [data-name] { color: var(--t-work); font-weight: 700; }
-  .row[data-look="needs"] [data-glyph] { color: var(--t-amber); }
-  .row[data-look="needs"] [data-name] { color: var(--t-strong); font-weight: 700; }
+  [data-look="working"] [data-glyph] { color: var(--t-teal); }
+  [data-look="working"] [data-name] { color: var(--t-work); font-weight: 700; }
+  [data-look="needs"] [data-glyph] { color: var(--t-amber); }
+  [data-look="needs"] [data-name] { color: var(--t-strong); font-weight: 700; }
   .row[data-look="needs"] [data-sub] { color: var(--t-amber); }
-  .row[data-look="done"] [data-glyph], .row[data-look="done"] [data-name] { color: var(--t-green); font-weight: 700; }
-  .row[data-look="idle"] [data-glyph] { color: var(--t-dim); }
-  .row[data-look="idle"] [data-name] { color: var(--t-c9); }
-  .view-btn { background: transparent; color: var(--t-dim); }
-  .view-btn[aria-pressed="true"] { background: var(--t-sel); color: var(--t-strong); box-shadow: inset 0 -2px 0 var(--t-teal); }
+  [data-look="done"] [data-glyph], [data-look="done"] [data-name] { color: var(--t-green); font-weight: 700; }
+  [data-look="idle"] [data-glyph] { color: var(--t-dim); }
+  [data-look="idle"] [data-name] { color: var(--t-c9); }
+  .strip { scrollbar-width: none; }
+  .strip::-webkit-scrollbar { display: none; }
   :global(.tline) { white-space: pre-wrap; word-break: break-word; animation: mtUp .3s ease-out both; }
   .ask, .toast { animation: mtUp .3s ease-out both; }
   .caret { animation: mtBlink 1s steps(1) infinite; }
-  /* Phones show one view; with no script both show and the switch hides. */
   @media (width < 48rem) {
-    :global(.js) [data-demo]:not([data-view="list"]) [data-view-list],
-    :global(.js) [data-demo][data-view="list"] [data-view-pane] { display: none; }
     .toast { bottom: 16px; min-width: 0; }
   }
-  :global(html:not(.js)) .view-switch { display: none; }
 </style>
 
 <script>
