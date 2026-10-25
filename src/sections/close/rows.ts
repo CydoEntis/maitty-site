@@ -23,5 +23,6 @@ export function rowLook(state: SessionState, mode: Mode): RowLook {
   }
   const c = STATES[state].color;
   const look = { spin: state === "working", glyph: state === "idle" ? "○" : "●", gc: c, nc: NAME_COLOR[state] };
-  return mode === "reopened" ? { ...look, tag: "resumed", tc: "var(--t-teal)" } : { ...look, tag: STATES[state].word, tc: c };
+  // Only the saved (idle) sessions were restarted; the rest kept running and show their state.
+  return mode === "reopened" && state === "idle" ? { ...look, tag: "resumed", tc: "var(--t-teal)" } : { ...look, tag: STATES[state].word, tc: c };
 }
