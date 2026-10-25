@@ -1,12 +1,11 @@
 ---
-// "Inbox, alerts and checks": three cards. The inbox rows and the alert
-// switches respond to clicks; the checks card is a config sample.
+// "Inbox, alerts and checks": three cards. The inbox rows and the sound
+// switch respond to clicks; the checks card is a config sample.
 const INBOX = [
-  { group: "NEEDS YOU", g: "●", c: "var(--t-amber)", name: "bold-puffin", text: "asks: Allow Bash(pnpm install)?" },
-  { group: "FAILED CHECKS", g: "✕", c: "var(--t-red)", name: "swift-otter", text: "failed: test · exit 1" },
-  { group: "NOT SEEN", g: "●", c: "var(--t-green)", name: "calm-heron", text: "done · not seen" },
+  { group: "NEEDS YOU", g: "●", c: "var(--t-amber)", name: "bold-puffin", text: "asks: Allow Bash(pnpm install)?", keys: [["m", "reply"], ["o", "open"]] },
+  { group: "FAILED CHECKS", g: "✕", c: "var(--t-red)", name: "swift-otter", text: "failed: test · exit 1", keys: [["⏎", "output"], ["r", "re-run"]] },
+  { group: "FINISHED", g: "●", c: "var(--t-green)", name: "calm-heron", text: "finished · not seen", keys: [] },
 ];
-const ALERTS = [{ label: "Sound when an agent waits", on: true }, { label: "Notify my phone", on: false }];
 const card = "flex flex-col gap-3.5 rounded-card border border-line bg-card p-5";
 const h3 = "m-0 font-display text-base/[normal] font-bold tracking-[-.02em] text-strong";
 ---
@@ -15,7 +14,7 @@ const h3 = "m-0 font-display text-base/[normal] font-bold tracking-[-.02em] text
     <h2 data-reveal id="i-title" class="m-0 mb-10 font-display text-[clamp(26px,3.6vw,44px)]/[1.12] font-bold tracking-[-.035em] text-strong">Inbox, alerts and checks.</h2>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-5">
       <div class="term flex flex-col text-[13px]/[18px] shadow-none">
-        <div class="flex h-6 items-center justify-between bg-tm-bar px-2.5"><span class="bg-tm-chip px-1.5 text-tm-strong"><b>INBOX</b> 3</span><span class="text-tm-dim">most urgent first</span></div>
+        <div class="flex h-6 items-center justify-between bg-tm-bar px-2.5"><span class="bg-tm-chip px-1.5 text-tm-strong"><b>INBOX</b> 2</span><span class="text-tm-dim">most urgent first</span></div>
         <div class="pt-2 pb-3">
           {INBOX.map((it, i) => (
             <>
@@ -24,7 +23,7 @@ const h3 = "m-0 font-display text-base/[normal] font-bold tracking-[-.02em] text
                 <span class="font-bold" style={`color:${it.c}`}>{it.g}</span>
                 <span class="flex min-w-0 flex-col">
                   <b class="text-tm-strong">{it.name}</b><span style={`color:${it.c}`}>{it.text}</span>
-                  <span class="actions mt-1"><span class="term-chip"><b class="text-tm-teal">↵</b> open</span> <span class="term-chip"><b class="text-tm-teal">r</b> reply</span></span>
+                  {it.keys.length > 0 && <span class="actions mt-1">{it.keys.map(([k, label]) => <><span class="term-chip"><b class="text-tm-teal">{k}</b> {label}</span> </>)}</span>}
                 </span>
               </button>
             </>
@@ -33,12 +32,13 @@ const h3 = "m-0 font-display text-base/[normal] font-bold tracking-[-.02em] text
       </div>
       <div class={card}>
         <h3 class={h3}>Alerts</h3>
-        <p class="m-0 text-base text-muted">A sound when an agent waits, and an optional notification on your phone.</p>
-        {ALERTS.map(({ label, on }) => (
-          <button type="button" role="switch" aria-checked={on ? "true" : "false"} data-alert class="flex min-h-11 items-center gap-3 rounded-btn border border-line bg-bg px-3 py-2.5 text-left font-mono text-sm font-medium text-strong transition-colors duration-200 hover:border-teal">
-            <span class="box font-bold whitespace-pre"></span>{label}
-          </button>
-        ))}
+        <p class="m-0 text-base text-muted">A sound when an agent waits, and an optional phone alert through the free ntfy app when one has waited a minute.</p>
+        <button type="button" role="switch" aria-checked="true" data-alert class="flex min-h-11 items-center gap-3 rounded-btn border border-line bg-bg px-3 py-2.5 text-left font-mono text-sm font-medium text-strong transition-colors duration-200 hover:border-teal">
+          <span class="box font-bold whitespace-pre"></span>Sound when an agent waits
+        </button>
+        <div class="flex min-h-11 items-center gap-3 rounded-btn border border-line bg-bg px-3 py-2.5 font-mono text-sm font-medium text-strong">
+          <span aria-hidden="true" class="font-bold text-dim whitespace-pre">[↗]</span>Phone alerts · via the free ntfy app
+        </div>
       </div>
       <div class={card}>
         <h3 class={h3}>Checks</h3>
