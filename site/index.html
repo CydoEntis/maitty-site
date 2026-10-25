@@ -388,7 +388,7 @@
           <button type="button" role="tab" id="panel-tab-changes" aria-controls="panel-changes" aria-selected="true">changes</button>
           <button type="button" role="tab" id="panel-tab-files" aria-controls="panel-files" aria-selected="false" tabindex="-1">files</button>
         </div>
-        <div role="tabpanel" id="panel-changes" aria-labelledby="panel-tab-changes">
+        <div role="tabpanel" tabindex="0" id="panel-changes" aria-labelledby="panel-tab-changes">
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Changes: review what an agent changed before you merge it.">
@@ -486,7 +486,7 @@
           </div>
         </figure>
         </div>
-        <div role="tabpanel" id="panel-files" aria-labelledby="panel-tab-files" hidden>
+        <div role="tabpanel" tabindex="0" id="panel-files" aria-labelledby="panel-tab-files" hidden>
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Files: the project's tree beside its README, drawn as markdown.">
@@ -677,7 +677,7 @@
         <div>
           <h3>Checks</h3>
           <p>Name a command, such as your tests. Maitty runs it after every turn, so a broken turn reads <b>failed</b>, not <b>done</b>.</p>
-<pre class="code"><span class="c"># config.toml</span>
+<pre class="code" tabindex="0"><span class="c"># config.toml</span>
 [[check]]
 <span class="k">project</span> = <span class="s">"/home/me/code/my-app"</span>
 <span class="k">name</span>    = <span class="s">"test"</span>
@@ -693,7 +693,7 @@
         <h2 id="cli-title">Agents that work together.</h2>
         <p>Everything works from any shell, including from an agent running inside Maitty. Through MCP, agents can list, read, message and start other sessions, within limits you set.</p>
       </div>
-<pre class="code code-lg" aria-label="Command-line examples"><span class="p">$</span> maitty worktree feat/login -- codex
+<pre class="code code-lg" tabindex="0"><span class="p">$</span> maitty worktree feat/login -- codex
 <span class="c"># a new branch in its own worktree, with codex</span>
 <span class="p">$</span> maitty send -p 3 "run the tests"
 <span class="c"># message session 3</span>
@@ -715,7 +715,7 @@
           <button type="button" role="tab" id="lay-tab-compact" aria-controls="lay-compact" aria-selected="false" tabindex="-1">compact</button>
           <button type="button" role="tab" id="lay-tab-grid" aria-controls="lay-grid" aria-selected="false" tabindex="-1">grid</button>
         </div>
-        <div role="tabpanel" id="lay-floating" aria-labelledby="lay-tab-floating">
+        <div role="tabpanel" tabindex="0" id="lay-floating" aria-labelledby="lay-tab-floating">
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Floating: cards with room between them.">
@@ -792,7 +792,7 @@
           <figcaption><b>Floating.</b> Boxes with gaps, the default.</figcaption>
         </figure>
         </div>
-        <div role="tabpanel" id="lay-tiled" aria-labelledby="lay-tab-tiled" hidden>
+        <div role="tabpanel" tabindex="0" id="lay-tiled" aria-labelledby="lay-tab-tiled" hidden>
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Tiled: cards edge to edge.">
@@ -869,7 +869,7 @@
           <figcaption><b>Tiled.</b> Boxes edge to edge.</figcaption>
         </figure>
         </div>
-        <div role="tabpanel" id="lay-compact" aria-labelledby="lay-tab-compact" hidden>
+        <div role="tabpanel" tabindex="0" id="lay-compact" aria-labelledby="lay-tab-compact" hidden>
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Compact: flat panes, the most room for output.">
@@ -946,7 +946,7 @@
           <figcaption><b>Compact.</b> Full-bleed zones with square edges.</figcaption>
         </figure>
         </div>
-        <div role="tabpanel" id="lay-grid" aria-labelledby="lay-tab-grid" hidden>
+        <div role="tabpanel" tabindex="0" id="lay-grid" aria-labelledby="lay-tab-grid" hidden>
         <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="Grid: each pane in its own colour.">
