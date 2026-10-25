@@ -219,12 +219,14 @@ h1 span { display: block; }
 /* The frame scales its cell grid to the box width (0.6em is JetBrains Mono's
    advance, with a little slack for rounding), down to a floor; below it the frame scrolls inside the box
    rather than widening the page. */
-.term-body { container-type: inline-size; overflow-x: auto; padding: 8px; }
+.term-body { container-type: inline-size; overflow-x: auto; }
 .term-body .frame {
   margin: 0;
   font-family: var(--mono);
   font-size: clamp(3px, calc(100cqi / (var(--cols, 120) * .605)), 14px);
-  line-height: 1.2;
+  /* JetBrains Mono's box-drawing glyphs span 1.32em; any less leaves gaps
+     in the app's vertical borders. */
+  line-height: 1.32;
   white-space: pre;
   width: max-content;
 }
@@ -255,10 +257,13 @@ h3 { margin: 0 0 6px; font: 700 16px var(--display); letter-spacing: -.02em; col
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: clamp(32px, 5vw, 64px);
 }
-/* Status needs its legend beside a wide frame, so the frame gets more room. */
+/* A frame beside text gets the wider share. */
 @media (min-width: 1000px) { .split { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); } }
+.split-even { align-items: end; }
+@media (min-width: 1000px) { .split-even { grid-template-columns: 1fr 1fr; } }
+.status-frame { margin-top: 40px; }
 
-.states { margin: 24px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.states { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
 .states > div { display: grid; grid-template-columns: 11ch 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .states dt { font: 700 14px var(--mono); color: var(--strong); white-space: nowrap; }
 .states dd { margin: 0; color: var(--muted); font-size: 15px; }

@@ -17,8 +17,11 @@ const SLOT = /(<!-- frame:([\w-]+) -->\n)[\s\S]*?(<!-- \/frame:\2 -->)/g;
 const ENTITIES = { "&lt;": "<", "&gt;": ">", "&amp;": "&", "&quot;": '"', "&#39;": "'", "&nbsp;": " " };
 const textOf = (html) => html.replace(/<[^>]*>/g, "").replace(/&[#\w]+;/g, (e) => ENTITIES[e] ?? "?");
 
-// The widest line in cells, so CSS can fit the grid to the box.
+// The grid width in cells, so CSS can fit it to the box. The exporter
+// records it; counting characters is the fallback for a hand-made frame.
 function columns(html) {
+  const declared = html.match(/data-cols="(\d+)"/);
+  if (declared) return Number(declared[1]);
   return Math.max(...textOf(html).split("\n").map((line) => [...line].length));
 }
 
@@ -35,7 +38,7 @@ const html = readFileSync(page, "utf8").replace(SLOT, (whole, open, name, close)
   if (!night || !day) { missing.push(name); return whole; }
   spliced.push(name);
   const cols = Math.max(columns(night), columns(day));
-  return `${open}<div class="fv-set" style="--cols:${cols}"><div class="fv-night">${night}</div><div class="fv-day">${day}</div></div>\n${close}`;
+  return `${open}<div class="fv-set" style="--cols:${cols}" aria-hidden="true"><div class="fv-night">${night}</div><div class="fv-day">${day}</div></div>\n${close}`;
 });
 
 writeFileSync(page, html);

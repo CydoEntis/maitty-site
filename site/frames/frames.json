@@ -1,0 +1,200 @@
+[
+  {
+    "bg": "#08111d",
+    "caption": "Agents across three projects; Claude waits for permission to run the tests.",
+    "cols": 160,
+    "frame": "hero",
+    "name": "hero-night",
+    "rows": 45,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Agents across three projects; Claude waits for permission to run the tests.",
+    "cols": 160,
+    "frame": "hero",
+    "name": "hero-day",
+    "rows": 45,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Grid: four agents in one tab, each in its own colour.",
+    "cols": 160,
+    "frame": "grid",
+    "name": "grid-night",
+    "rows": 45,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Grid: four agents in one tab, each in its own colour.",
+    "cols": 160,
+    "frame": "grid",
+    "name": "grid-day",
+    "rows": 45,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Changes: review what an agent changed before you merge it.",
+    "cols": 160,
+    "frame": "changes",
+    "name": "changes-night",
+    "rows": 45,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Changes: review what an agent changed before you merge it.",
+    "cols": 160,
+    "frame": "changes",
+    "name": "changes-day",
+    "rows": 45,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Files: the project's tree beside its README, drawn as markdown.",
+    "cols": 160,
+    "frame": "files",
+    "name": "files-night",
+    "rows": 45,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Files: the project's tree beside its README, drawn as markdown.",
+    "cols": 160,
+    "frame": "files",
+    "name": "files-day",
+    "rows": 45,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "The Inbox: a question, a failed check and finished work, in the order they need you.",
+    "cols": 120,
+    "frame": "inbox",
+    "name": "inbox-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "The Inbox: a question, a failed check and finished work, in the order they need you.",
+    "cols": 120,
+    "frame": "inbox",
+    "name": "inbox-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Floating: cards with room between them.",
+    "cols": 120,
+    "frame": "layout-floating",
+    "name": "layout-floating-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Floating: cards with room between them.",
+    "cols": 120,
+    "frame": "layout-floating",
+    "name": "layout-floating-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Tiled: cards edge to edge.",
+    "cols": 120,
+    "frame": "layout-tiled",
+    "name": "layout-tiled-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Tiled: cards edge to edge.",
+    "cols": 120,
+    "frame": "layout-tiled",
+    "name": "layout-tiled-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Compact: flat panes, the most room for output.",
+    "cols": 120,
+    "frame": "layout-compact",
+    "name": "layout-compact-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Compact: flat panes, the most room for output.",
+    "cols": 120,
+    "frame": "layout-compact",
+    "name": "layout-compact-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Grid: each pane in its own colour.",
+    "cols": 120,
+    "frame": "layout-grid",
+    "name": "layout-grid-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Grid: each pane in its own colour.",
+    "cols": 120,
+    "frame": "layout-grid",
+    "name": "layout-grid-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "Shortcut mode: one key moves, splits or opens; Esc goes back to typing.",
+    "cols": 120,
+    "frame": "shortcut",
+    "name": "shortcut-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "Shortcut mode: one key moves, splits or opens; Esc goes back to typing.",
+    "cols": 120,
+    "frame": "shortcut",
+    "name": "shortcut-day",
+    "rows": 34,
+    "theme": "day"
+  },
+  {
+    "bg": "#08111d",
+    "caption": "The welcome screen: what happened while you were away.",
+    "cols": 120,
+    "frame": "splash",
+    "name": "splash-night",
+    "rows": 34,
+    "theme": "night"
+  },
+  {
+    "bg": "#f6f8fa",
+    "caption": "The welcome screen: what happened while you were away.",
+    "cols": 120,
+    "frame": "splash",
+    "name": "splash-day",
+    "rows": 34,
+    "theme": "day"
+  }
+]
