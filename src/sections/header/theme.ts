@@ -34,7 +34,11 @@ const isSkipped = (e: unknown) => e instanceof DOMException && e.name === "Abort
 function setTheme(theme: Theme) {
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (theme === root.dataset.theme || still || !document.startViewTransition) {
+    // Without the reveal, switch every colour at once: reading a style flushes the change while transitions are off.
+    root.toggleAttribute("data-theme-switching", true);
     apply(theme);
+    void getComputedStyle(root).color;
+    root.removeAttribute("data-theme-switching");
     return;
   }
   // Colour transitions would fade inside the new snapshot; data-theme-switching turns them off.
