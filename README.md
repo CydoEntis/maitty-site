@@ -11,10 +11,16 @@ HTML, CSS and a little JavaScript in `site/`; no build step.
 - The terminal screens are real Maitty frames, exported from the app into
   `site/frames/` as `NAME-night.html` and `NAME-day.html` (`<pre class="frame">`
   with coloured spans). Regenerate them from a Maitty checkout next to this
-  repo (`C:\dev\maitty`):
+  repo (`C:\dev\maitty`), on `dev` and pulled (the exporter is on `origin/dev`):
 
   ```sh
+  cd ../maitty && git switch dev && git pull
   MAITTY_SITE_FRAMES=../maitty-site/site/frames cargo test export_site_frames -- --ignored
+  ```
+
+  ```powershell
+  cd ..\maitty; git switch dev; git pull
+  $env:MAITTY_SITE_FRAMES = "..\maitty-site\site\frames"; cargo test export_site_frames -- --ignored
   ```
 
   They are copied into `index.html` so the page ships them inline: about
