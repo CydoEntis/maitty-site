@@ -24,9 +24,11 @@ jobs:
             if [ ! -f "site/$ref" ]; then echo "missing: $ref"; missing=1; fi
           done
           exit $missing
-      # index.html must already hold the frames in site/frames/.
-      - name: Check frames are spliced
+      # index.html must already hold the first render of view.js and logic.js,
+      # and the frames in site/frames/.
+      - name: Check index.html is up to date
         run: |
+          node tools/prerender.mjs
           node tools/splice-frames.mjs
           git diff --exit-code site/index.html
 
