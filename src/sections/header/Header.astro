@@ -10,10 +10,10 @@ const link = "py-3 text-text no-underline hover:text-teal";
       <span>M<span class="text-teal">AI</span>TTY</span>
     </a>
     <nav aria-label="Main" class="flex items-center gap-[clamp(8px,2.2vw,22px)] font-mono text-[13px] font-medium">
-      <a class={link} href="#install">install</a>
-      {/* Phones keep install and the theme; guide and GitHub sit in the hero and footer too. */}
-      <a class={`${link} max-sm:hidden`} href="https://github.com/CydoEntis/maitty/blob/main/docs/guide.md">guide</a>
-      <a class={`${link} max-sm:hidden`} href="https://github.com/CydoEntis/maitty">github</a>
+      {/* Phones keep GitHub and the theme; the install block opens the page. */}
+      <a class={`${link} phone:hidden`} href="#install">install</a>
+      <a class={`${link} phone:hidden`} href="https://github.com/CydoEntis/maitty/blob/main/docs/guide.md">guide</a>
+      <a class={link} href="https://github.com/CydoEntis/maitty">github</a>
       <ThemeToggle />
     </nav>
   </div>

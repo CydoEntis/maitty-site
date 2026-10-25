@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* The designer's phone layout: phone:hidden and friends. */
+@custom-variant phone (@media (max-width: 560px));
+
 /* Tokens are the designer's prototype ("Maitty Landing v2"). AA: a few greys,
    Day amber and Day teal sit one step darker (or, at Night, lighter) than the
    handoff so text clears 4.5:1 on every surface it meets. The page switches
