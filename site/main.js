@@ -80,11 +80,13 @@
     sel.addRange(range);
   }
 
+  const COPY_KEY = /mac/i.test((navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "") ? "⌘C" : "Ctrl+C";
+
   function copy(button) {
     const done = (ok) => {
-      button.textContent = ok ? "✓ copied" : "press Ctrl+C";
+      button.textContent = ok ? "✓ copied" : `press ${COPY_KEY}`;
       button.toggleAttribute("data-copied", ok);
-      live(ok ? "Install command copied" : "Copy failed. The command is selected; press Ctrl+C.");
+      live(ok ? "Install command copied" : `Copy failed. The command is selected; press ${COPY_KEY}.`);
       setTimeout(() => { button.textContent = COPY_LABEL; button.removeAttribute("data-copied"); }, COPIED_MS);
     };
     if (!navigator.clipboard || !window.isSecureContext) { selectCommand(button); done(false); return; }
