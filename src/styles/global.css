@@ -8,11 +8,15 @@
 @font-face { font-family: "Martian Mono"; font-weight: 800; font-display: swap; src: url("/fonts/martian-mono-800.woff2") format("woff2"); }
 @font-face { font-family: "Instrument Sans"; font-weight: 400; font-display: swap; src: url("/fonts/instrument-sans-400.woff2") format("woff2"); }
 @font-face { font-family: "Instrument Sans"; font-weight: 600; font-display: swap; src: url("/fonts/instrument-sans-600.woff2") format("woff2"); }
-/* The full JetBrains Mono, not a latin subset: the terminal mocks use
-   box-drawing and braille characters that the subsets leave out. */
+/* The terminal mocks use box-drawing and braille characters, so the full
+   JetBrains Mono loads too. The latin subsets come after it, so they win for
+   the characters they cover and the hero paints before the full files land. */
 @font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: swap; src: url("/fonts/jetbrains-mono-400.woff2") format("woff2"); }
 @font-face { font-family: "JetBrains Mono"; font-weight: 600; font-display: swap; src: url("/fonts/jetbrains-mono-600.woff2") format("woff2"); }
 @font-face { font-family: "JetBrains Mono"; font-weight: 700; font-display: swap; src: url("/fonts/jetbrains-mono-700.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: swap; src: url("/fonts/jetbrains-mono-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2212; }
+@font-face { font-family: "JetBrains Mono"; font-weight: 600; font-display: swap; src: url("/fonts/jetbrains-mono-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2212; }
+@font-face { font-family: "JetBrains Mono"; font-weight: 700; font-display: swap; src: url("/fonts/jetbrains-mono-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2212; }
 
 :root {
   --t-bg:#08111d;--t-bar:#0f1b2b;--t-chip:#1a2c44;--t-sel:#1f2935;--t-line:#1d2d42;--t-teal:#3dd6c6;--t-work:#92e5e0;--t-green:#7fd99a;--t-amber:#f5c542;--t-yel:#f2c75c;--t-red:#ff7b72;--t-dim:#8092a5;--t-adim:#919191;--t-txt:#d0d0d0;--t-bash:#b2dada;--t-blue:#6cb6ff;--t-strong:#eef5fb;--t-c9:#c9d6e3;--t-user:#15253a;--t-d1:#e8c565;--t-d2:#c792ea;--t-d3:#ff7ab6;--t-d4:#a593ff;--t-alt:#0b1626;--t-rule:#8394a8;--t-ink:#08111d;
