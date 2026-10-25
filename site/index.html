@@ -144,7 +144,8 @@
           <button type="button" role="tab" id="panel-tab-changes" aria-controls="panel-changes" aria-selected="true">changes</button>
           <button type="button" role="tab" id="panel-tab-files" aria-controls="panel-files" aria-selected="false" tabindex="-1">files</button>
         </div>
-        <figure class="term" role="tabpanel" id="panel-changes" aria-labelledby="panel-tab-changes">
+        <div role="tabpanel" id="panel-changes" aria-labelledby="panel-tab-changes">
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Changes tab in the side panel, showing a file's diff next to the agent's pane.">
 <!-- frame:changes -->
@@ -152,7 +153,9 @@
 <!-- /frame:changes -->
           </div>
         </figure>
-        <figure class="term" role="tabpanel" id="panel-files" aria-labelledby="panel-tab-files" hidden>
+        </div>
+        <div role="tabpanel" id="panel-files" aria-labelledby="panel-tab-files" hidden>
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Files tab in the side panel, showing the project tree next to the agent's pane.">
 <!-- frame:files -->
@@ -160,6 +163,7 @@
 <!-- /frame:files -->
           </div>
         </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -224,7 +228,8 @@
           <button type="button" role="tab" id="lay-tab-compact" aria-controls="lay-compact" aria-selected="false" tabindex="-1">compact</button>
           <button type="button" role="tab" id="lay-tab-grid" aria-controls="lay-grid" aria-selected="false" tabindex="-1">grid</button>
         </div>
-        <figure class="term" role="tabpanel" id="lay-floating" aria-labelledby="lay-tab-floating">
+        <div role="tabpanel" id="lay-floating" aria-labelledby="lay-tab-floating">
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Floating layout: boxes with gaps, the default.">
 <!-- frame:layout-floating -->
@@ -233,7 +238,9 @@
           </div>
           <figcaption><b>Floating.</b> Boxes with gaps, the default.</figcaption>
         </figure>
-        <figure class="term" role="tabpanel" id="lay-tiled" aria-labelledby="lay-tab-tiled" hidden>
+        </div>
+        <div role="tabpanel" id="lay-tiled" aria-labelledby="lay-tab-tiled" hidden>
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Tiled layout: boxes edge to edge.">
 <!-- frame:layout-tiled -->
@@ -242,7 +249,9 @@
           </div>
           <figcaption><b>Tiled.</b> Boxes edge to edge.</figcaption>
         </figure>
-        <figure class="term" role="tabpanel" id="lay-compact" aria-labelledby="lay-tab-compact" hidden>
+        </div>
+        <div role="tabpanel" id="lay-compact" aria-labelledby="lay-tab-compact" hidden>
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Compact layout: full-bleed zones with square edges.">
 <!-- frame:layout-compact -->
@@ -251,7 +260,9 @@
           </div>
           <figcaption><b>Compact.</b> Full-bleed zones with square edges.</figcaption>
         </figure>
-        <figure class="term" role="tabpanel" id="lay-grid" aria-labelledby="lay-tab-grid" hidden>
+        </div>
+        <div role="tabpanel" id="lay-grid" aria-labelledby="lay-tab-grid" hidden>
+        <figure class="term">
           <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>maitty</span></div>
           <div class="term-body" role="img" aria-label="The Grid layout: each pane in its own colour, by its place.">
 <!-- frame:layout-grid -->
@@ -260,6 +271,7 @@
           </div>
           <figcaption><b>Grid.</b> Each pane in its own colour, by its place.</figcaption>
         </figure>
+        </div>
       </div>
     </div>
   </section>
