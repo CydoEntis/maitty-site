@@ -89,7 +89,7 @@ ${v.groups.map((g) => `
 <div style="display:flex;flex-direction:column">
 <div style="display:grid;grid-template-columns:2ch minmax(0,1fr) auto;gap:8px;padding:0 10px 0 10px"><span style="color:${at(g.dc)};font-weight:700">–</span><b style="color:var(--t-strong)">${tx(g.name)}</b><span style="color:var(--t-dim)">${tx(g.meta)}</span></div>
 ${g.items.map((r) => `
-<button class="hv4" type="button" data-click="${on(r.pick)}" aria-current="${at(r.on)}" style="display:block;width:100%;text-align:left;border:0;padding:0 10px 0 10px;background:${at(r.bg)};box-shadow:${at(r.bar)};font:inherit;color:inherit;cursor:pointer;transition:background-color .2s">
+<button class="hv4" type="button" data-click="${on(r.pick)}" aria-current="${at(r.on)}" style="display:block;width:100%;text-align:left;border:0;padding:3px 10px;background:${at(r.bg)};box-shadow:${at(r.bar)};font:inherit;color:inherit;cursor:pointer;transition:background-color .2s">
 <span style="display:grid;grid-template-columns:2ch minmax(0,1fr) auto;gap:8px;padding-left:2ch"><span style="color:${at(r.gc)};font-weight:700">${tx(r.glyph)}</span><span style="color:${at(r.nc)};font-weight:${at(r.fw)};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${tx(r.name)}</span><span style="color:var(--t-dim);white-space:nowrap"><span style="color:var(--t-green)">${tx(r.plus)}</span> <span style="color:var(--t-red)">${tx(r.minus)}</span> ${tx(r.meta)}</span></span>
 <span style="display:${at(r.subD)};padding-left:calc(4ch + 8px);color:${at(r.sc)};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${tx(r.sub)}</span>
 </button>
@@ -121,7 +121,7 @@ ${v.pane.ask ? `
 <span style="padding-left:2ch;color:var(--t-adim)">${tx(v.pane.desc)}</span>
 <span style="margin-top:8px;color:var(--t-txt)">Allow Bash(${tx(v.pane.cmd)})?</span>
 ${v.pane.opts.map((o) => `
-<button class="hv5" type="button" data-click="${on(o.pick)}" style="display:grid;grid-template-columns:2ch minmax(0,1fr);text-align:left;border:0;padding:0;background:transparent;font:inherit;color:${at(o.c)};cursor:pointer"><span style="font-weight:700">${tx(o.arrow)}</span><span>${tx(o.label)}</span></button>
+<button class="hv5" type="button" data-click="${on(o.pick)}" style="display:grid;grid-template-columns:2ch minmax(0,1fr);text-align:left;border:0;padding:3px 0;background:transparent;font:inherit;color:${at(o.c)};cursor:pointer"><span style="font-weight:700">${tx(o.arrow)}</span><span>${tx(o.label)}</span></button>
 `).join("")}
 </div>
 ` : ""}
@@ -213,7 +213,7 @@ ${v.closeRows.map((r) => `
 <div data-reveal="" style="transition-delay:.15s;background:var(--t-bg);border:1px solid var(--t-line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);font:400 13px/18px 'JetBrains Mono',monospace;color:var(--t-txt);display:flex;flex-wrap:wrap">
 <div style="flex:999 1 460px;min-width:0;display:flex;flex-direction:column">
 <div style="display:flex;align-items:center;gap:8px;height:24px;padding:0 10px;background:var(--t-bar)"><span style="padding:0 8px;background:var(--t-teal);color:var(--t-ink);font-weight:700">1  keen-gull</span><span style="margin-left:auto;color:var(--t-dim)">⎇ feat/login · acme-store-worktrees/keen-gull</span></div>
-<div style="padding:12px 0;overflow-x:auto">
+<div tabindex="0" style="padding:12px 0;overflow-x:auto">
 <div style="padding:0 14px 6px;white-space:pre"><span style="color:var(--t-adim)">└ </span><span style="color:var(--t-txt)">Updated </span><span style="color:var(--t-strong)">${tx(v.diffPath)}</span><span style="color:var(--t-adim)"> (+${tx(v.diffA)} −${tx(v.diffR)})</span></div>
 ${v.diff.map((d) => `
 <div style="display:grid;grid-template-columns:6ch 2ch minmax(0,1fr);gap:4px;padding:0 14px;white-space:pre;animation:mtUp .25s ease-out both"><span style="color:${at(d.nc)};text-align:right">${tx(d.n)}</span><span style="color:${at(d.nc)}">${tx(d.k)}</span><span>${d.segs.map((s) => `<span style="color:${at(s.c)}">${tx(s.t)}</span>`).join("")}</span></div>
@@ -269,7 +269,7 @@ ${v.alerts.map((al) => `
 <div style="background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px">
 <h3 style="margin:0;font:700 16px 'Martian Mono',monospace;color:var(--strong);letter-spacing:-.02em">Checks</h3>
 <p style="margin:0;color:var(--muted);font-size:16px">Name a command, such as your tests. Maitty runs it after every turn, so a broken turn reads <b style="color:var(--fail);font-family:'JetBrains Mono',monospace">failed</b>, not <b style="color:var(--done);font-family:'JetBrains Mono',monospace">done</b>.</p>
-<pre style="margin:0;padding:12px 14px;background:var(--t-bg);border:1px solid var(--t-line);border-radius:3px;font:400 13px/1.65 'JetBrains Mono',monospace;color:var(--t-txt);overflow-x:auto"><span style="color:var(--t-adim)"># config.toml</span>
+<pre tabindex="0" style="margin:0;padding:12px 14px;background:var(--t-bg);border:1px solid var(--t-line);border-radius:3px;font:400 13px/1.65 'JetBrains Mono',monospace;color:var(--t-txt);overflow-x:auto"><span style="color:var(--t-adim)"># config.toml</span>
 [[check]]
 <span style="color:var(--t-teal)">project</span> = <span style="color:var(--t-red)">"/home/me/code/my-app"</span>
 <span style="color:var(--t-teal)">name</span>    = <span style="color:var(--t-red)">"test"</span>
