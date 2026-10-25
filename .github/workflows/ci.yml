@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Every local file the page links to must exist, srcset entries included.
+      - name: Check local links
+        run: |
+          missing=0
+          refs=$(grep -oE '(src|href)="/[^"#]*"' site/index.html | sed -E 's/^(src|href)="\/(.*)"$/\2/'
+                 grep -oE 'srcset="[^"]*"' site/index.html | grep -oE '/[^ ",]+' | sed 's/^\///'
+                 grep -oE 'url\("/[^"]*"\)' site/styles.css | sed -E 's/^url\("\/(.*)"\)$/\1/')
+          for ref in $(echo "$refs" | sort -u); do
+            [ -z "$ref" ] && continue
+            if [ ! -f "site/$ref" ]; then echo "missing: $ref"; missing=1; fi
+          done
+          exit $missing
+      # index.html must already hold the frames in site/frames/.
+      - name: Check frames are spliced
+        run: |
+          node tools/splice-frames.mjs
+          git diff --exit-code site/index.html
+
+  # The server pulls :main itself (deploy/README.md), so pushing it is the deploy.
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    # One at a time, so an older run can't overwrite a newer image.
+    concurrency:
+      group: publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/cydoentis/maitty-site:main
+            ghcr.io/cydoentis/maitty-site:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

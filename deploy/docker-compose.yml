@@ -1,0 +1,14 @@
+# Runs from /srv/maitty on the VPS. CI moves :main on every push to main;
+# the server's update timer pulls it, so CI never connects to the server.
+name: maitty
+
+services:
+  web:
+    image: ghcr.io/cydoentis/maitty-site:main
+    restart: unless-stopped
+    # Docker's default json-file logs never rotate.
+    logging:
+      driver: local
+    ports:
+      # Loopback only: Docker-published ports bypass ufw.
+      - "127.0.0.1:8083:8080"
