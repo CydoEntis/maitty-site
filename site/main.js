@@ -65,7 +65,7 @@
   // Each section pauses its own decoration while it is off screen.
   function pauseOffscreen() {
     const io = new IntersectionObserver((entries) => entries.forEach((en) => en.target.toggleAttribute("data-paused", !en.isIntersecting)));
-    app.querySelectorAll("header, section").forEach((s) => io.observe(s));
+    app.querySelectorAll("section").forEach((s) => io.observe(s));
   }
 
   function loadVersion() {
